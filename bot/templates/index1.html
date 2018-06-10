@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="">
+        <meta name="author" content="" />
+        <title>Grandpy Bot</title>
+
+        <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
+        <!-- Bootstrap CSS -->
+        <link href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}" rel="stylesheet" />
+
+        <!-- Custom fonts for this template -->
+        <script src="https://use.fontawesome.com/470b91f216.js"></script>
+
+    </head>
+
+    <body>
+        <div class="container">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <a class="navbar-brand" href="#">Papy Bot !</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                  </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+              </div>
+            </nav>
+
+            <header class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>Bonjour et bienvenue sur le site de papy-robot !</h1>
+                </div>
+            </header>
+
+            <section class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="cont-chat darker text-right">
+                        <img src="static/img/invite.png" alt="Avatar" class="right">
+                        <p>Hello PapyBot</p>
+                    </div>
+                    <div class="cont-chat">
+                        <img src="static/img/papybot.png" alt="Avatar">
+                        <p>Bonjour Je suis PapyBot, bienvenue sur mon site !</p>
+                    </div>
+                    <div class="cont-chat darker text-right">
+                        <img src="static/img/invite.png" alt="Avatar" class="right">
+                        <p>Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?</p>
+                    </div>
+                    <div class="cont-chat">
+                        <img src="static/img/papybot.png" alt="Avatar">
+                        <p>Bien sûr mon poussin ! La voici : 7 cité Paradis, 75010 Paris.</p>
+                    </div>
+                    <div class="cont-chat">
+                        <img src="static/img/papybot.png" alt="Avatar">
+                        <p>Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ?
+                            La cité Paradis est une voie publique située dans le 10e arrondissement de Paris.
+                            Elle est en forme de té, une branche débouche au 43 rue de Paradis, la deuxième au
+                            57 rue d'Hauteville et la troisième en impasse. [En savoir plus sur Wikipedia]</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="row">
+                <div class="col-lg-8 mx-auto">
+                    <form class="form-inline" name="addMsg" id="addMsg" method="POST" action="#">
+                            <div class="form-group col-lg-10">
+                                <label for="content">Message : </label>
+                                <input type="text" class="form-control col-lg-10" placeholder="Ex: Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?" name="content" id="content" required />
+                            </div>
+                            <button class="pull-right btn btn-primary" type="submit" >Envoyer</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Fooder -->
+            <footer class="row">
+                <div class="col-lg-12 text-center">
+                    <br />
+                    <p><a href="https://github.com/Nels885/grandpy_bot" class="btn-social btn-outline" target="_blank"><span class="sr-only">Github</span><i class="fa fa-fw fa-github"></i></a></p>
+                    <span class="italic">Copyright &copy; Lionel Voirin pour <a href="https://www.openclassrooms.com" target="_blank">OpenClassrooms</a></span>
+                </div>
+            </footer>
+
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+
+    </body>
