@@ -1,2 +1,2 @@
-from .control import app
-from . import models
+from .controler import app
+from . import parser
