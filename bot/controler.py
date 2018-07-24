@@ -34,3 +34,8 @@ def add_post():
     time.sleep(3)
 
     return json.dumps({'status': 'OK', 'message': msgs_bot})
+
+
+@app.route('/wiki/', methods=['POST'])
+def api_wiki():
+    pass

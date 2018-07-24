@@ -21,17 +21,38 @@ $(function () {
             method: 'POST',
             url: '/',
             data: {content: msgUser},
-        }).done(function(response) {
+        }).done(function(parameters) {
 
-            // Remove load animation
-            $('#load').remove();
+            $.ajax({
+                method: 'GET',
+                url: 'https://fr.wikipedia.org/w/api.php?',
+                data : parameters
+            }).done(function(response) {
 
-            // Display the messages of GrandyBot
-            const answersList = JSON.parse(response).message;
-            answersList.forEach(function (answer) {
-                $('#chat').append('<div class="cont-chat">' +
-                    '<img class="left" src="../static/img/papybot.png" alt="Avatar">' +
-                    '<p>' + answer + '</p></div>');
+                $.ajax({
+                    method: 'POST',
+                    url: '/wiki/',
+                    data: response,
+                }).done(function(msgsBot) {
+                    // Remove load animation
+                    $('#load').remove();
+
+                    // Display the messages of GrandyBot
+                    const answersList = JSON.parse(msgsBot).message;
+                    answersList.forEach(function (answer) {
+                        $('#chat').append('<div class="cont-chat">' +
+                            '<img class="left" src="../static/img/papybot.png" alt="Avatar">' +
+                            '<p>' + answer + '</p></div>');
+                    });
+                }).fail(function(error) {
+
+                    // Display error message in the console
+                    console.error(error);
+                });
+            }).fail(function(error) {
+
+                // Display error message in the console
+                console.error(error);
             });
         }).fail(function(error) {
 
