@@ -1,8 +1,7 @@
 import time
-from .parser import *
-from .package.mediawiki import data_extract
 
-from flask import Flask, render_template, request, json, url_for
+from .bot import bot_analysis
+from flask import Flask, render_template, request, json
 
 app = Flask(__name__)
 
@@ -27,22 +26,9 @@ def add_post():
     :return: return the answers of GrandpyBot in JSON format
     """
     message = request.form['content']
-    msgs_bot = []
 
-    # Parsing of user's message
-    pars = Parser(app.config['STOP_WORDS_JSON'], message)
-    msg_bot, key_words = pars.msg_analysis()
-
-    # search with keywords using google map and mediawiki APIs
-    if len(key_words) != 0:
-        msgs_bot.append(msg_bot + " La voici : 7 cité Paradis, 75010 Paris.")
-
-        citation = data_extract("cité Paradis, Paris")
-        print(citation)
-        info_bot = "Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? " + citation
-        msgs_bot.append(info_bot)
-    else:
-        msgs_bot.append(msg_bot)
+    # Analysis of the question by GrandPy Bot
+    msgs_bot = bot_analysis(message)
 
     # load animation test
     time.sleep(3)

@@ -9,11 +9,10 @@
     <title>Grandpy Bot</title>
 
     <!-- Custom CSS for the chat -->
-    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}"/>
 
     <!-- Custom fonts for this template -->
     <script src="https://use.fontawesome.com/470b91f216.js"></script>
@@ -40,10 +39,6 @@
                     <a class="nav-link" href="#">Contact</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
 
@@ -69,7 +64,6 @@
     <section class="row">
         <div class="col-lg-8 mx-auto">
             <form class="form-inline" name="addMsg" id="addMsg">
-            <!-- <form class="form-inline" name="addMsg" id="addMsg" method="POST" action="{{ url_for('add_post') }}"> -->
                 <div class="form-group col-lg-10">
                     <label for="content">Message</label> :
                     <input type="text" class="form-control col-lg-10"
@@ -95,15 +89,8 @@
 </div>
 
 <!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- jQuery 3.3.1 -->
 <script src="{{ url_for('static', filename='js/jquery/jquery-3.3.1.min.js') }}"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
 
 <!-- custom JavaScript -->
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>

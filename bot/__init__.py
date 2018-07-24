@@ -1,2 +1,2 @@
 from .controler import app
-from . import parser
+from bot.package import parser
