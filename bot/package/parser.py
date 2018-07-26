@@ -4,8 +4,6 @@ import logging as log
 
 class Parser:
     SYMBOLS = ["!", "?", ",", ".", "'", "-", "*", "+", "=", "/"]
-    MSG_START = "Bien sûr mon poussin !"
-    MSG_BOT_ERROR = "Je ne comprends pas la question !!"
     WORD_SEARCH = ["adresse", "nom"]
     WORD_GREETING = ["bonjour", "coucou", "hello", "grandpy", "bot", "papy", "robot", "papybot"]
 
@@ -28,16 +26,11 @@ class Parser:
         """
         words_list = self._msg_filter()
         log.info("mots-clés: %s" % words_list)
-        answer = self.MSG_START
         for word in words_list:
-            if word in self.WORD_GREETING:
-                answer = self.MSG_START
-            else:
+            if word not in self.WORD_GREETING:
                 self.keyWords.append(word)
         log.info("mots-clés restants: %s" % self.keyWords)
-        if len(self.keyWords) == 0:
-            answer = self.MSG_BOT_ERROR
-        return answer, self.keyWords
+        return self.keyWords
 
     def _msg_filter(self):
         """

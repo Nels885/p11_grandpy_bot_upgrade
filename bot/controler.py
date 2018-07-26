@@ -28,14 +28,13 @@ def add_post():
     message = request.form['content']
 
     # Analysis of the question by GrandPy Bot
-    msgs_bot = bot_analysis(message)
+    msgs_bot, key_words = bot_analysis(message)
 
     # load animation test
     time.sleep(3)
 
-    return json.dumps({'status': 'OK', 'message': msgs_bot})
+    return json.dumps({'status': 'OK',
+                       'messages': msgs_bot,
+                       'keyWords': key_words,
+                       })
 
-
-@app.route('/wiki/', methods=['POST'])
-def api_wiki():
-    pass
