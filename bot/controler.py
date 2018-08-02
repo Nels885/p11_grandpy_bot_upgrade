@@ -36,5 +36,8 @@ def add_post():
     return json.dumps({'status': 'OK',
                        'messages': msgs_bot,
                        'keyWords': key_words,
+                       'urlApiWiki': app.config["WIKI_URL"],
+                       'dataSearch': app.config["WIKI_PARA_SEARCH"],
+                       'dataPageId': app.config["WIKI_PARA_PAGE_ID"]
                        })
 
