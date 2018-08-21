@@ -1,11 +1,11 @@
 import json
-import logging as log
+from ..controler import log
 
 
 class Parser:
     SYMBOLS = ["!", "?", ",", ".", "'", "-", "*", "+", "=", "/"]
     WORD_SEARCH = ["adresse", "nom"]
-    WORD_GREETING = ["bonjour", "coucou", "hello", "grandpy", "bot", "papy", "robot", "papybot"]
+    WORD_GREETING = ["salut", "bonjour", "coucou", "hello", "grandpy", "bot", "papy", "robot", "papybot"]
 
     def __init__(self, file, message):
         """

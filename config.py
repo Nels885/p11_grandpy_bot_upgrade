@@ -1,15 +1,13 @@
 import os
 
 
-SECRET_KEY = "#d#JCqTTW\nilK\\7m\x0bp#\tj~#H"
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Stop Words file
 STOP_WORDS_JSON = os.path.join(basedir, 'fr.json')
 
 # Parameters for Google Maps
-GOOGLE_KEY = 'AIzaSyAt-AePxeGQNSnZQqAUninBfWJ7aoc3XJA'
+GOOGLE_KEY = <YOUR_GOOGLE_API_KEY>
 
 
 # Parameters for MediaWiki
@@ -23,6 +21,7 @@ WIKI_PARA_SEARCH = {
     "formatversion": "2"
 }
 """
+
 WIKI_PARA_SEARCH = {
     "action": "query",
     "list": "geosearch",
@@ -36,6 +35,7 @@ WIKI_PARA_PAGE_ID = {
     "action": "query",
     "prop": "extracts",
     "explaintext": "true",
+    "exsectionformat": "plain",
     "exsentences": "3",
     "format": "json",
     "formatversion": "2"

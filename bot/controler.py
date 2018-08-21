@@ -1,4 +1,5 @@
 import time
+import logging as log
 
 from .bot import bot_analysis
 from flask import Flask, render_template, request, json
@@ -28,14 +29,14 @@ def add_post():
     message = request.form['content']
 
     # Analysis of the question by GrandPy Bot
-    msgs_bot, key_words = bot_analysis(message)
+    msgs_bot, location = bot_analysis(message)
 
     # load animation test
     time.sleep(3)
 
     return json.dumps({'status': 'OK',
                        'messages': msgs_bot,
-                       'keyWords': key_words,
+                       'location': location,
                        'urlApiWiki': app.config["WIKI_URL"],
                        'dataSearch': app.config["WIKI_PARA_SEARCH"],
                        'dataPageId': app.config["WIKI_PARA_PAGE_ID"]
