@@ -28,9 +28,11 @@ def grandpy_bot(message):
         msgs_bot.append(random_msg_start(MSG_START).format(format_address))
         msgs_bot.append(INFO_BOT)
     else:
-        msgs_bot.append(MSG_BOT_ERROR)
+        msgs_bot.append(random_msg_start(MSG_BOT_ERROR))
+        location = ""
+        # location = {'geometry': '', 'route': ''}
 
-    log.info("GRANDY_BOT - ANSWERS : %s" % msgs_bot)
+    log.info("GRANDY_BOT - ANSWERS : %s - LOCATION : %s" % (msgs_bot, location))
     return msgs_bot, location
 
 

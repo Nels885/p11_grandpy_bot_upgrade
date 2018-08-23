@@ -27,7 +27,7 @@
 }
 
 /* Style images */
-.cont-chat img {
+.cont-chat .avatar {
     float: left;
     max-width: 60px;
     width: 100%;

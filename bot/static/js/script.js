@@ -15,7 +15,7 @@ function chatBot(answer) {
     $('#load').remove();
 
     chat.append('<div class="cont-chat">' +
-        '<img class="left" src="../static/img/papybot.png" alt="Avatar">' +
+        '<img class="left avatar" src="../static/img/papybot.png" alt="Avatar">' +
         '<p>' + answer + '</p></div>');
 }
 
@@ -103,7 +103,7 @@ $(function () {
         // Adding the user message in the chat window
         const msgUser = $('#content').val();
         chat.append('<div class="cont-chat darker text-right">' +
-            '<img class="right" src="../static/img/invite.png" alt="Avatar">' +
+            '<img class="right avatar" src="../static/img/invite.png" alt="Avatar">' +
             '<p>' + msgUser + '</p></div>');
 
         // Adding load animation
@@ -116,22 +116,18 @@ $(function () {
             data: {content: msgUser},
         }).done(function (response) {
             const answers = JSON.parse(response).answers;
-            const location = JSON.parse(response).location;
-            console.log("[BACK END] LOCATION : " + location);
+            const geoLocation = JSON.parse(response).geoLocation;
+            console.log("[BACK END] LOCATION : " + geoLocation);
 
             chatBot(answers[0]);
 
             // if geolocation then we display the Google Map
-            if (location.length !== 0) {
+            if (geoLocation.length !== 0) {
                 var mapId = "map" + String(numId);
-                chat.append('<div class="cont-chat"><img class="left" src="../static/img/papybot.png" alt="Avatar">' +
-                    '<div id=' + mapId + ' class="map"></div></div>');
-                initMap(location['geometry'], mapId);
+                chatBot('<div id=' + mapId + ' class="map"></div>');
+                initMap(geoLocation['geometry'], mapId);
                 numId += 1;
-                apiWiki(location, answers[1], response);
-            }else {
-                chatBot(answers[1]);
-                // chatBot("Je n'ai pas trouvé de localisation à votre question !");
+                apiWiki(geoLocation, answers[1], response);
             }
         }).fail(ajaxError);
     });

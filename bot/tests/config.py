@@ -24,6 +24,7 @@ GOOGLE_KEY = <YOUR_GOOGLE_API_KEY>
 
 
 
+
 """
 Different answers from GrandpyBot
 """

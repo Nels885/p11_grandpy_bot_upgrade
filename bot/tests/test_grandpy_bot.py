@@ -1,4 +1,4 @@
-import urllib
+from urllib import request
 from flask_testing import LiveServerTestCase
 
 from .. import app
@@ -19,7 +19,7 @@ class TestGrand(LiveServerTestCase):
         Test if the server is started.
         :return:
         """
-        response = urllib.request.urlopen(self.get_server_url())
+        response = request.urlopen(self.get_server_url())
         self.assertEqual(response.code, 200)
 
     def test_grandpy_bot(self):
@@ -58,3 +58,8 @@ class TestParser:
 
     def setup_method(self):
         self.parser = Parser(STOP_WORDS_JSON, MSG_TEST)
+
+    def test_type_result(self):
+        result = self.parser.msg_analysis()
+        assert isinstance(result, list)
+

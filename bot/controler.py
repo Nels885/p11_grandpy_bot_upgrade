@@ -40,7 +40,7 @@ def msg_bot():
 
     return json.dumps({'status': 'OK',
                        'answers': answers_bot,
-                       'location': location,
+                       'geoLocation': location,
                        'urlApiWiki': app.config["WIKI_URL_JS"],
                        'dataSearch': app.config["WIKI_PARA_SEARCH"],
                        'dataPageId': app.config["WIKI_PARA_PAGE_ID"]
