@@ -1,14 +1,12 @@
+from random import randint
+
 from config import *
 from .package.parser import *
 from .package.googlemaps import *
-
-gmaps = googlemaps.Client(key=GOOGLE_KEY)
-
-MSG_START = "Bien sûr mon poussin ! La voici : {}."
-MSG_BOT_ERROR = "Je ne comprends pas la question !!"
+from .controler import log
 
 
-def bot_analysis(message):
+def grandpy_bot(message):
     """
     ## Analysis of the question by GrandPy Bot
     :param message: User's question
@@ -27,10 +25,15 @@ def bot_analysis(message):
         gmaps = GoogleMaps(GOOGLE_KEY)
         format_address, location = gmaps.geo_search(key_words)
 
-        msgs_bot.append(MSG_START.format(format_address))
-        info_bot = "Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? "
-        msgs_bot.append(info_bot)
+        msgs_bot.append(random_msg_start(MSG_START).format(format_address))
+        msgs_bot.append(INFO_BOT)
     else:
         msgs_bot.append(MSG_BOT_ERROR)
 
+    log.info("GRANDY_BOT - ANSWERS : %s" % msgs_bot)
     return msgs_bot, location
+
+
+def random_msg_start(msg):
+    number = randint(0, len(msg) - 1)
+    return msg[number]

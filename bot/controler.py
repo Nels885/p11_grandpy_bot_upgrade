@@ -1,13 +1,17 @@
 import time
 import logging as log
 
-from .bot import bot_analysis
 from flask import Flask, render_template, request, json
+
+from .grandpybot import grandpy_bot
 
 app = Flask(__name__)
 
 
 app.config.from_object('config')
+
+if app.debug is True:
+    log.basicConfig(level=log.INFO)
 
 
 @app.route('/')
@@ -21,23 +25,23 @@ def index():
 
 
 @app.route('/', methods=['POST'])
-def add_post():
+def msg_bot():
     """
     Receives user messages and return GranpyBot answers
     :return: return the answers of GrandpyBot in JSON format
     """
-    message = request.form['content']
+    answer = request.form['content']
 
     # Analysis of the question by GrandPy Bot
-    msgs_bot, location = bot_analysis(message)
+    answers_bot, location = grandpy_bot(answer)
 
     # load animation test
-    time.sleep(3)
+    time.sleep(2)
 
     return json.dumps({'status': 'OK',
-                       'messages': msgs_bot,
+                       'answers': answers_bot,
                        'location': location,
-                       'urlApiWiki': app.config["WIKI_URL"],
+                       'urlApiWiki': app.config["WIKI_URL_JS"],
                        'dataSearch': app.config["WIKI_PARA_SEARCH"],
                        'dataPageId': app.config["WIKI_PARA_PAGE_ID"]
                        })

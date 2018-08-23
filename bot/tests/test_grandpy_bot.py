@@ -2,6 +2,10 @@ import urllib
 from flask_testing import LiveServerTestCase
 
 from .. import app
+from ..package.googlemaps import GoogleMaps
+from ..package.parser import Parser
+from ..grandpybot import grandpy_bot
+from .config import *
 
 
 class TestGrand(LiveServerTestCase):
@@ -18,20 +22,39 @@ class TestGrand(LiveServerTestCase):
         response = urllib.request.urlopen(self.get_server_url())
         self.assertEqual(response.code, 200)
 
-    def test_message(self):
+    def test_grandpy_bot(self):
         """
         Test that sending a message works
         :return:
         """
+        msg_bot, location = grandpy_bot(MSG_TEST)
+        assert len(msg_bot) != 0 and len(location) == 0
 
-    def test_api_google_maps(self):
+
+class TestGoogleMaps:
+
+    def setup_method(self):
+        self.gmaps = GoogleMaps(GOOGLE_KEY)
+        self.gmaps.geo_search(SEARCH)
+
+    def test_formatted_address(self):
         """
         Test access to API of Google Maps
-        :return:
+        :return: Fomatted address of the research
         """
+        format_address = self.gmaps.formatted_address()
+        assert format_address == FORMATTED_ADDRESS
 
-    def test_api_media_wiki(self):
+    def test_location(self):
         """
-        Test access to API of media Wiki
-        :return:
+        test access to API of Google Maps
+        :return: location of the research in the dict format
         """
+        location = self.gmaps.geo_location()
+        assert location == LOCATION
+
+
+class TestParser:
+
+    def setup_method(self):
+        self.parser = Parser(STOP_WORDS_JSON, MSG_TEST)

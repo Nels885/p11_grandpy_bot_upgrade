@@ -1,4 +1,5 @@
 import json
+
 from ..controler import log
 
 
@@ -16,7 +17,6 @@ class Parser:
         """
         self.message = message.lower()
         self.keyWords = []
-        log.basicConfig(level=log.INFO)
         self.stopWordsList = json.load(open(file, 'r'))
 
     def msg_analysis(self):
@@ -25,11 +25,11 @@ class Parser:
         :return: Answer of GrandPy Bot
         """
         words_list = self._msg_filter()
-        log.info("mots-clés: %s" % words_list)
+        log.info("PARSER - KEY WORDS IN : %s" % words_list)
         for word in words_list:
             if word not in self.WORD_GREETING:
                 self.keyWords.append(word)
-        log.info("mots-clés restants: %s" % self.keyWords)
+        log.info("PARSER - KEY WORDS OUT : %s" % self.keyWords)
         return self.keyWords
 
     def _msg_filter(self):
@@ -38,7 +38,7 @@ class Parser:
         :return: List of keywords
         """
         words_list = self.__symbol_replace()
-        log.info("Mise en forme question: %s" % words_list)
+        log.info("PARSER - FORMAT THE QUESTION : %s" % words_list)
         for stopWord in self.stopWordsList:
             if stopWord in words_list:
                 words_list.remove(stopWord)

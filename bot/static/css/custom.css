@@ -1,6 +1,7 @@
+/* Set the size of the div element that contains the map */
 .map {
-    width: 85%;
-    height: 400px;
+    height: 400px; /* The height is 400 pixels */
+    width: 85%; /* The width is the width of the web page */
 }
 
 /* Chat containers */
@@ -41,6 +42,7 @@
     margin-right: 0;
 }
 
+/* Style forLoading for the chat */
 #loader {
     margin: 0 auto;
     width: 40px;
