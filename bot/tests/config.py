@@ -33,7 +33,7 @@ MSG_TEST_OC = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms 
 Parameters for Google Maps
 ==========================
 """
-GOOGLE_KEY = "AIzaSyBXY7hN348bYM7NE0KKsIiipwesJEeX1ps"
+GOOGLE_KEY = "<YOUR_GOOGLE_API_KEY>"
 
 
 """
