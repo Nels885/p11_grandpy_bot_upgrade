@@ -1,23 +1,27 @@
 import os
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
 
 """
+===============
 Stop Words file
+===============
 """
+basedir = os.path.abspath(os.path.dirname(__file__))
 STOP_WORDS_JSON = os.path.join(basedir, "fr.json")
 
 
 """
+==========================
 Parameters for Google Maps
+==========================
 """
-GOOGLE_KEY = <YOUR_GOOGLE_API_KEY>
-
+GOOGLE_KEY = "AIzaSyBXY7hN348bYM7NE0KKsIiipwesJEeX1ps"
 
 
 """
+=================================
 Different answers from GrandpyBot
+=================================
 """
 MSG_START = ["Bien sûr mon poussin ! La voici : {}.",
              "La voici mon seigneur : {}",
@@ -32,7 +36,9 @@ MSG_BOT_ERROR_API = "Je suis désolé, je ne peux pas vous répondre pour le mom
 
 
 """
+========================
 Parameters for MediaWiki
+========================
 """
 WIKI_URL_JS = "https://fr.wikipedia.org/w/api.php?callback=?"
 WIKI_URL = "https://fr.wikipedia.org/w/api.php?"

@@ -34,16 +34,16 @@ function ajaxError(error) {
 
 // Function for search with API MediaWiki
 function apiWiki(location, answer, response) {
-    const urlApiWiki = JSON.parse(response).urlApiWiki;
-    const dataSearch = JSON.parse(response).dataSearch;
-    const dataPageId = JSON.parse(response).dataPageId;
+    const urlApiWiki = response['urlApiWiki'];
+    const dataSearch = response['dataSearch'];
+    const dataPageId = response['dataPageId'];
     var msgBot = answer;
 
     // Adding load animation
     loadBot();
     dataSearch["gscoord"] = location["geometry"]["lat"] + "|" + location["geometry"]["lng"];
     $.get({
-        url: urlApiWiki,
+        url: response['urlApiWiki'],
         data: dataSearch,
         dataType: "json",
     }).done(mediawikiSearchCallback).fail(ajaxError);
@@ -115,14 +115,15 @@ $(function () {
             url: '/',
             data: {content: msgUser},
         }).done(function (response) {
-            const answers = JSON.parse(response).answers;
-            const geoLocation = JSON.parse(response).geoLocation;
+            console.log(response);
+            const answers = response['answers'];
+            const geoLocation = response['geoLocation'];
             console.log("[BACK END] LOCATION : " + geoLocation);
 
             chatBot(answers[0]);
 
             // if geolocation then we display the Google Map
-            if (geoLocation.length !== 0) {
+            if (geoLocation['geometry'].length !== 0) {
                 var mapId = "map" + String(numId);
                 chatBot('<div id=' + mapId + ' class="map"></div>');
                 initMap(geoLocation['geometry'], mapId);

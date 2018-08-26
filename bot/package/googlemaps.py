@@ -7,21 +7,34 @@ class GoogleMaps:
 
     def __init__(self, google_key):
         self.gooMaps = googlemaps.Client(key=google_key)
-        self.geocode_result = None
+        self.geocode_result = []
+        self.format_address = ""
+        self.location = {'geometry': '', 'route': ''}
+        self.error = True
 
     def geo_search(self, key_words):
-        search = " ".join(key_words)
-        self.geocode_result = self.gooMaps.geocode(search, language="fr")
-        format_address = self.formatted_address()
-        location = self.geo_location()
-        log.info("GOOGLE_MAPS - OUT : ADDRESS : {} - LOCATION : {} - ROUTE : {}"
-                 .format(format_address, location["geometry"], location["route"]))
-        return format_address, location
+        if len(key_words) != 0:
+            search = " ".join(key_words)
+            self.geocode_result = self.gooMaps.geocode(search)
+            log.info("GOOGLE_MAPS - RESULT : {}".format(self.geocode_result))
+            self.formatted_address()
+            self.geo_location()
+            log.info("GOOGLE_MAPS - OUT : ADDRESS : {} - LOCATION : {} - ROUTE : {}"
+                     .format(self.format_address, self.location["geometry"], self.location["route"]))
+        else:
+            self.error = False
+        return self.error
 
     def formatted_address(self):
-        return self.geocode_result[0]["formatted_address"]
+        if len(self.geocode_result) != 0:
+            self.format_address = self.geocode_result[0]["formatted_address"]
+        else:
+            self.error = False
 
     def geo_location(self):
-        route = self.geocode_result[0]["address_components"][1]["long_name"]
-        geo = self.geocode_result[0]["geometry"]["location"]
-        return {'geometry': geo, 'route': route}
+        if len(self.geocode_result) != 0:
+            route = self.geocode_result[0]["address_components"][1]["long_name"]
+            geo = self.geocode_result[0]["geometry"]["location"]
+            self.location = {'geometry': geo, 'route': route}
+        else:
+            self.error = False

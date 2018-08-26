@@ -13,27 +13,22 @@ def grandpy_bot(message):
     :return: GrandPy Bot's answer
     """
     msgs_bot = []
-    location = {}
 
     # Parsing of user's message
     pars = Parser(STOP_WORDS_JSON, message)
     key_words = pars.msg_analysis()
 
     # search with keywords using google map and mediawiki APIs
-    if len(key_words) != 0 and "adresse" in key_words:
+    gmaps = GoogleMaps(GOOGLE_KEY)
+    if gmaps.geo_search(key_words) and "adresse" in key_words:
 
-        gmaps = GoogleMaps(GOOGLE_KEY)
-        format_address, location = gmaps.geo_search(key_words)
-
-        msgs_bot.append(random_msg_start(MSG_START).format(format_address))
+        msgs_bot.append(random_msg_start(MSG_START).format(gmaps.format_address))
         msgs_bot.append(INFO_BOT)
     else:
         msgs_bot.append(random_msg_start(MSG_BOT_ERROR))
-        location = ""
-        # location = {'geometry': '', 'route': ''}
 
-    log.info("GRANDY_BOT - ANSWERS : %s - LOCATION : %s" % (msgs_bot, location))
-    return msgs_bot, location
+    log.info("GRANDY_BOT - ANSWERS : %s - LOCATION : %s" % (msgs_bot, gmaps.location))
+    return msgs_bot, gmaps.location
 
 
 def random_msg_start(msg):
