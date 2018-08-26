@@ -33,18 +33,15 @@ function ajaxError(error) {
 
 
 // Function for search with API MediaWiki
-function apiWiki(location, answer, response) {
-    const urlApiWiki = response['urlApiWiki'];
-    const dataSearch = response['dataSearch'];
-    const dataPageId = response['dataPageId'];
-    var msgBot = answer;
+function apiWiki(loc, resp) {
+    var msgBot = resp['answers'][1];
 
     // Adding load animation
     loadBot();
-    dataSearch["gscoord"] = location["geometry"]["lat"] + "|" + location["geometry"]["lng"];
+    resp["dataSearch"]["gscoord"] = loc["geometry"]["lat"] + "|" + loc["geometry"]["lng"];
     $.get({
-        url: response['urlApiWiki'],
-        data: dataSearch,
+        url: resp['urlApiWiki'],
+        data: resp['dataSearch'],
         dataType: "json",
     }).done(mediawikiSearchCallback).fail(ajaxError);
 
@@ -53,17 +50,17 @@ function apiWiki(location, answer, response) {
         var pageId = pageIdList[0]["pageid"];
         // Number of the searched page
         for (i=0; i<pageIdList.length; i++){
-            if (pageIdList[i]["title"] === location["route"]) {
+            if (pageIdList[i]["title"] === loc["route"]) {
                 pageId = pageIdList[i]["pageid"];
             }
         }
 
         console.log("[MEDIAWIKI] PAGE_ID : " + pageId);
 
-        dataPageId["pageids"] = pageId;
+        resp["dataPageId"]["pageids"] = pageId;
         $.get({
-            url: urlApiWiki,
-            data: dataPageId,
+            url: resp["urlApiWiki"],
+            data: resp["dataPageId"],
             dataType: "json",
         }).done(mediawikiPageidCallback).fail(ajaxError);
 
@@ -115,12 +112,10 @@ $(function () {
             url: '/',
             data: {content: msgUser},
         }).done(function (response) {
-            console.log(response);
-            const answers = response['answers'];
             const geoLocation = response['geoLocation'];
             console.log("[BACK END] LOCATION : " + geoLocation);
 
-            chatBot(answers[0]);
+            chatBot(response['answers'][0]);
 
             // if geolocation then we display the Google Map
             if (geoLocation['geometry'].length !== 0) {
@@ -128,7 +123,7 @@ $(function () {
                 chatBot('<div id=' + mapId + ' class="map"></div>');
                 initMap(geoLocation['geometry'], mapId);
                 numId += 1;
-                apiWiki(geoLocation, answers[1], response);
+                apiWiki(geoLocation, response);
             }
         }).fail(ajaxError);
     });
