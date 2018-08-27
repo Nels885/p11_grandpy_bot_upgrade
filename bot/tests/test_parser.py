@@ -3,11 +3,14 @@ import pytest
 from ..package.parser import Parser
 from .config import *
 
+from .. import app
+
 
 class TestParser:
 
     def setup_method(self):
-        self.parser = Parser(STOP_WORDS_JSON, MSG_TEST_NO_RESULT)
+        self.stopWordsJson = app.config["STOP_WORDS_JSON"]
+        self.parser = Parser(self.stopWordsJson, MSG_TEST_NO_RESULT)
 
     def test_type_result(self):
         """
@@ -30,6 +33,6 @@ class TestParser:
         Test the keywords from OpenClassRooms
         :return: return FAILED if result is different of the list("adresse","openclassrooms")
         """
-        self.parser = Parser(STOP_WORDS_JSON, MSG_TEST_OC)
+        self.parser = Parser(self.stopWordsJson, MSG_TEST_OC)
         result = self.parser.msg_analysis()
         assert result == KEY_WORDS

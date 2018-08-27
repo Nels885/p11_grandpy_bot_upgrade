@@ -1,14 +1,3 @@
-import os
-
-"""
-===============
-Stop Words file
-===============
-"""
-basedir = os.path.abspath(os.path.dirname(__file__))
-STOP_WORDS_JSON = os.path.join(basedir, "fr.json")
-
-
 """
 =======================================
 Constants for Tests and active debugger
@@ -26,14 +15,6 @@ LOCATION = {'geometry': {'lng': 2.350564700000001, 'lat': 48.8747578}, 'route': 
 
 MSG_TEST_NO_RESULT = "Salut Grandpy Bot, comment vas-tu ?"
 MSG_TEST_OC = "Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
-
-
-"""
-==========================
-Parameters for Google Maps
-==========================
-"""
-GOOGLE_KEY = "<YOUR_GOOGLE_API_KEY>"
 
 
 """
