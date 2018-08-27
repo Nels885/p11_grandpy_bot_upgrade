@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no"/>
     <meta name="description" content="">
     <meta name="author" content=""/>
     <title>Grandpy Bot</title>
@@ -23,23 +23,12 @@
 <div class="container-fluid">
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Papy Bot !</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
+    <nav class="navbar fixed-top navbar-light bg-dark">
+        <a class="navbar-brand text-light" href="#">
+            <img class="d-inline-block align-top" src="{{ url_for('static', filename='img/papybot_128.png') }}"
+                 width="30" height="30" alt="logo"/>
+            Grandpy Bot
+        </a>
     </nav>
 
     <!-- Header of the page -->
@@ -48,44 +37,44 @@
             <h1>Bonjour et bienvenue sur le site de papy-robot !</h1>
         </div>
     </header>
-</div>
 
-<div class="container">
-    <!-- Section of the chat -->
-    <section class="row">
-        <div id="chat" class="col-lg-12 mx-auto">
-            <div class="cont-chat" id="msgPres">
-                <img class="left avatar" src="{{ url_for('static', filename='img/papybot.png') }}" alt="Avatar">
-                <p>Bonjour, je suis GrandPy Bot, Avez-vous une question à me poser ?</p>
-            </div>
-            <!-- Contenu Chat créer en javascript -->
-        </div>
-    </section>
-
-    <!-- Section for to ask a question -->
-    <section class="row">
-        <div class="col-lg-12 mx-auto">
-            <form name="addMsg" id="addMsg">
-                <div class="form-group">
-                    <label for="content">Posez votre question à Papy Bot: </label>
-                    <input type="text" class="form-control"
-                           placeholder="Ex: Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
-                           name="content" id="content" required/>
+    <div class="container">
+        <!-- Section of the chat -->
+        <section class="row">
+            <div id="chat" class="col-lg-12 mx-auto">
+                <div class="cont-chat" id="msgPres">
+                    <img class="left avatar" src="{{ url_for('static', filename='img/papybot.png') }}" alt="Avatar"/>
+                    <p>Bonjour, je suis GrandPy Bot, Avez-vous une question à me poser ?</p>
                 </div>
-                <input class="pull-right btn btn-primary" type="submit" value="Envoyer"/>
-            </form>
-        </div>
-    </section>
-</div>
+                <!-- Contenu Chat créer en javascript -->
+            </div>
+        </section>
+
+        <!-- Section for to ask a question -->
+        <section class="row">
+            <div class="col-lg-12 mx-auto">
+                <form name="addMsg" id="addMsg">
+                    <div class="form-group">
+                        <label for="content">Posez votre question à Papy Bot: </label>
+                        <input type="text" class="form-control"
+                               placeholder="Ex: Salut GrandPy ! Est-ce que tu connais l'adresse d'OpenClassrooms ?"
+                               name="content" id="content" required/>
+                    </div>
+                    <!--
+                    <input class="pull-right btn btn-primary" type="submit" value="Envoyer"/>
+                    -->
+                </form>
+            </div>
+        </section>
+    </div>
 
     <!-- Fooder -->
     <footer class="row">
-        <div class="col-lg-12 text-center">
-            <br/>
+        <div class="col-lg-12 text-center bg-dark fixed-bottom">
             <p><a href="https://github.com/Nels885/grandpy_bot" class="btn-social btn-outline" target="_blank"><span
                     class="sr-only">Github</span><i class="fa fa-github fa-3x" aria-hidden="true"></i></a></p>
             <hr/>
-            <span class="italic">Copyright &copy; Lionel Voirin pour <a href="https://www.openclassrooms.com"
+            <span class="italic text-light">Copyright &copy; Lionel Voirin pour <a href="https://www.openclassrooms.com"
                                                                         target="_blank">OpenClassrooms</a></span>
         </div>
     </footer>

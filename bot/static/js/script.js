@@ -1,4 +1,4 @@
-const chat = $('#chat');
+const chat = $("#chat");
 var numId = 0;
 
 
@@ -37,14 +37,14 @@ function ajaxError(error) {
 
 // Function for search with API MediaWiki
 function apiWiki(loc, resp) {
-    var msgBot = resp['answers'][1];
+    var msgBot = resp["answers"][1];
 
     // Adding load animation
     loadBot();
     resp["dataSearch"]["gscoord"] = loc["geometry"]["lat"] + "|" + loc["geometry"]["lng"];
     $.get({
-        url: resp['urlApiWiki'],
-        data: resp['dataSearch'],
+        url: resp["urlApiWiki"],
+        data: resp["dataSearch"],
         dataType: "json",
     }).done(mediawikiSearchCallback).fail(ajaxError);
 
@@ -88,14 +88,14 @@ function initMap(location, mapId) {
     var marker = new google.maps.Marker({
         position: location,
         map: map,
-        title: 'C\'est ici !'
+        title: "C\'est ici !"
     });
 }
 
 
 $(function () {
 
-    $('form').on('submit', function (e) {
+    $("form").on("submit", function (e) {
         e.preventDefault();
 
         // Adding the user message in the chat window
@@ -112,20 +112,20 @@ $(function () {
 
         // AJAX requests to the post and displays the PapyBot message according to the user message
         $.ajax({
-            method: 'POST',
-            url: '/',
+            method: "POST",
+            url: "/",
             data: {content: msgUser},
         }).done(function (response) {
-            const geoLocation = response['geoLocation'];
+            const geoLocation = response["geoLocation"];
             console.log("[BACK END] LOCATION : " + geoLocation);
 
-            contChat(response['answers'][0]);
+            contChat(response["answers"][0]);
 
             // if geolocation then we display the Google Map
-            if (geoLocation['geometry'].length !== 0) {
+            if (geoLocation["route"].length !== 0) {
                 var mapId = "map" + String(numId);
                 contChat('<div id=' + mapId + ' class="map"></div>');
-                initMap(geoLocation['geometry'], mapId);
+                initMap(geoLocation["geometry"], mapId);
                 numId += 1;
                 apiWiki(geoLocation, response);
             }
