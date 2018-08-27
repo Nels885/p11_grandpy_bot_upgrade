@@ -1,3 +1,13 @@
+/*
+body {
+    background-color: #00c49c;
+}
+*/
+
+section #chat {
+    overflow-y: scroll;
+}
+
 /* Set the size of the div element that contains the map */
 .map {
     height: 400px; /* The height is 400 pixels */
@@ -6,17 +16,26 @@
 
 /* Chat containers */
 .cont-chat {
+    border: 2px solid #00C49C;
+    /*
     border: 2px solid #dedede;
     background-color: #f1f1f1;
-    border-radius: 5px;
+    */
+    background-color: #00C49C;
+    border-radius: 10px;
     padding: 10px;
     margin: 10px 0;
 }
 
 /* Darker chat container */
 .darker {
+    background-color: #313E52;
+    border-color: #313E52 ;
+    color: white;
+    /*
     border-color: #ccc;
     background-color: #ddd;
+    */
 }
 
 /* Clear floats */
@@ -70,4 +89,13 @@
         transform: rotate(360deg);
         opacity: 0.2;
     }
+}
+
+hr {
+  padding: 0;
+  border: none;
+  border-top: solid 5px;
+  text-align: center;
+  max-width: 250px;
+  margin: 25px auto 30px;
 }

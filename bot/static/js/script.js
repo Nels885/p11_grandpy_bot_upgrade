@@ -9,23 +9,26 @@ function loadBot() {
 }
 
 
-// Function for display the answer of GrandpyBot
-function chatBot(answer) {
+// Function for display the answer of GrandpyBot or Anonymous
+function contChat(answer, bot=true) {
+    var chatClass = "", avatar = "papybot.png", avatClass = "left";
+
     // Remove load animation
     $('#load').remove();
-
-    chat.append('<div class="cont-chat">' +
-        '<img class="left avatar" src="../static/img/papybot.png" alt="Avatar">' +
-        '<p>' + answer + '</p></div>');
+    if (!bot) {
+        chatClass = "darker text-right", avatar = "invite.png", avatClass = "right";
+    }
+    chat.append('<div class="cont-chat ' + chatClass + '">' +
+        '<img class="' + avatClass + ' avatar" src="../static/img/' + avatar + '" alt="Avatar"><p>' + answer + '</p></div>');
 }
 
 
-// function for the error with Ajax
+// Function for the error with Ajax
 function ajaxError(error) {
     // Display error message in the console
     console.error("[AJAX] ERROR : " + error);
 
-    chatBot("Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!");
+    contChat("Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!");
     /*
     chatBot("{{ config['MSG_BOT_ERROR_API'] }}");
     */
@@ -65,15 +68,13 @@ function apiWiki(loc, resp) {
         }).done(mediawikiPageidCallback).fail(ajaxError);
 
         function mediawikiPageidCallback(response) {
-
             const lien = "https://fr.wikipedia.org/wiki?curid=" + pageId;
             const result = response["query"]["pages"][0]["extract"];
             msgBot = msgBot + result;
             console.log("[MEDIAWIKI] ANSWER_BOT : " + msgBot);
 
-            chatBot(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');
+            contChat(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');
         }
-
     }
 }
 
@@ -99,9 +100,12 @@ $(function () {
 
         // Adding the user message in the chat window
         const msgUser = $('#content').val();
+        contChat(msgUser, false);
+        /*
         chat.append('<div class="cont-chat darker text-right">' +
             '<img class="right avatar" src="../static/img/invite.png" alt="Avatar">' +
             '<p>' + msgUser + '</p></div>');
+        */
 
         // Adding load animation
         loadBot();
@@ -115,12 +119,12 @@ $(function () {
             const geoLocation = response['geoLocation'];
             console.log("[BACK END] LOCATION : " + geoLocation);
 
-            chatBot(response['answers'][0]);
+            contChat(response['answers'][0]);
 
             // if geolocation then we display the Google Map
             if (geoLocation['geometry'].length !== 0) {
                 var mapId = "map" + String(numId);
-                chatBot('<div id=' + mapId + ' class="map"></div>');
+                contChat('<div id=' + mapId + ' class="map"></div>');
                 initMap(geoLocation['geometry'], mapId);
                 numId += 1;
                 apiWiki(geoLocation, response);
