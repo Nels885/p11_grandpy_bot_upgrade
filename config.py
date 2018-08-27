@@ -15,7 +15,7 @@ Parameters for Google Maps
 ==========================
 """
 # GOOGLE_KEY = "<YOUR_GOOGLE_API_KEY>"
-GOOGLE_KEY = "AIzaSyBXY7hN348bYM7NE0KKsIiipwesJEeX1ps"
+GOOGLE_KEY = "AIzaSyAeoYoUeMKC0XB_H7LAm-SKj5lkD3l8inI"
 
 
 """
