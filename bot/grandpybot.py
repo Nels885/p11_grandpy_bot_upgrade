@@ -20,8 +20,8 @@ def grandpy_bot(message):
 
     # search with keywords using google map and mediawiki APIs
     gmaps = GoogleMaps(GOOGLE_KEY)
-    if gmaps.geo_search(key_words) and "adresse" in key_words:
-
+    if "adresse" in key_words:
+        gmaps.geo_search(key_words)
         msgs_bot.append(random_msg_start(MSG_START).format(gmaps.format_address))
         msgs_bot.append(INFO_BOT)
     else:

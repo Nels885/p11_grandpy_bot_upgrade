@@ -15,7 +15,6 @@ Parameters for Google Maps
 ==========================
 """
 # GOOGLE_KEY = "<YOUR_GOOGLE_API_KEY>"
-GOOGLE_KEY = "AIzaSyAeoYoUeMKC0XB_H7LAm-SKj5lkD3l8inI"
 
 
 """
@@ -29,7 +28,7 @@ MSG_START = ["Bien sûr mon poussin ! La voici : {}.",
 
 INFO_BOT = "Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? "
 
-MSG_BOT_ERROR = ["Je n'ai pas trouvé de réponse à votre question !!",
+MSG_BOT_ERROR = ["Je n'ai pas trouvé de réponse à votre question !! Demandez-moi l'adresse d'un lieu ?",
                  "Erreur, je ne sais répondre qu'à des questions sur une adresse d'un lieu connu !!"]
 
 MSG_BOT_ERROR_API = "Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!"

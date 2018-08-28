@@ -10,7 +10,7 @@ class Parser:
 
     def __init__(self, file, message):
         """
-        ## Initialyse class KillParser
+        ## Initialize class KillParser
         :param file: File in json format grouping the words to be deleted from the message
         :param message: User's question
         :return:

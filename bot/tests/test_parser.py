@@ -10,7 +10,7 @@ class TestParser:
 
     def setup_method(self):
         self.stopWordsJson = app.config["STOP_WORDS_JSON"]
-        self.parser = Parser(self.stopWordsJson, MSG_TEST_NO_RESULT)
+        self.parser = Parser(self.stopWordsJson, MSG_TEST_NO_RESULT[0])
 
     def test_type_result(self):
         """

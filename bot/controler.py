@@ -32,7 +32,6 @@ def msg_bot():
     :return: status code 400 - invalid Content-Type
     """
     if request.headers["content-type"] == "application/x-www-form-urlencoded; charset=UTF-8":
-        print(request.form)
         try:
             answer = request.form["content"]
 
