@@ -1,10 +1,10 @@
 const chat = $("#chat");
-var numId = 0;
-var backEnd, geoLocation, pageId;
+let numId = 0;
+let backEnd, geoLocation, pageId;
 
 
 // Class to make ajax request
-var RequestAjax = {
+let RequestAjax = {
     // Initialize
     init: function (method, url) {
         this.method = method;
@@ -22,39 +22,48 @@ var RequestAjax = {
 };
 
 
-// Create Objects
-var backEndObject = Object.create(RequestAjax);
+// Class for display the answer of GrandpyBot or Anonymous
+let ContChat = {
+    init: function (chatClass, avatar, avatClass) {
+        this.chatClass = chatClass;
+        this.avatar = avatar;
+        this.avatClass = avatClass;
+    },
+    add: function (answer) {
+        // Remove load animation
+        $('#load').remove();
+        chat.append('<div class="row"><div class="' + this.chatClass + '">' +
+            '<img class="' + this.avatClass + '" src="../static/img/' + this.avatar + '" alt="Avatar"><p>' + answer + '</p></div></div>');
+    }
+};
+
+// Create Ajax Objects
+let backEndObject = Object.create(RequestAjax);
 backEndObject.init("POST", "/");
-var mediaWikiObject = Object.create(RequestAjax);
+let mediaWikiObject = Object.create(RequestAjax);
+
+// Create Chat Objects
+let chatBot = Object.create(ContChat);
+chatBot.init("cont-chat mr-auto", "papybot.png", "left avatar");
+let chatUser = Object.create(ContChat);
+chatUser.init("cont-chat darker text-right ml-auto", "invite.png", "right avatar");
+let chatMap = Object.create(ContChat);
+chatMap.init("cont-chat col-lg-12 mr-auto", "papybot.png", "left avatar");
 
 
 // Function for adding load animation
 function loadBot() {
-    chat.append('<div class="cont-chat text-center" id="load">' +
-        '<div id="loader"></div></div>');
-}
-
-
-// Function for display the answer of GrandpyBot or Anonymous
-function contChat(answer, bot = true) {
-    var chatClass = "", avatar = "papybot.png", avatClass = "left";
-
-    // Remove load animation
-    $('#load').remove();
-    if (!bot) {
-        chatClass = "darker text-right", avatar = "invite.png", avatClass = "right";
-    }
-    chat.append('<div class="cont-chat ' + chatClass + '">' +
-        '<img class="' + avatClass + ' avatar" src="../static/img/' + avatar + '" alt="Avatar"><p>' + answer + '</p></div>');
+    chat.append('<div class="row"><div class="cont-chat text-center col-lg-12" id="load">' +
+        '<div id="loader"></div></div></div>');
 }
 
 
 // Function for the error with Ajax
 function ajaxError(error) {
+    chatBot.add("Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!");
+
     // Display error message in the console
     console.error("[AJAX] ERROR : " + error);
-
-    contChat("Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!");
 }
 
 
@@ -83,17 +92,17 @@ function mediawikiPageidCallback(response) {
     msgBot = backEnd["answers"][1] + result;
     console.log("[MEDIAWIKI] ANSWER_BOT : " + msgBot);
 
-    contChat(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');
+    chatBot.add(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');
 }
 
 
 // Function for displaying the google map
 function initMap(location, mapId) {
-    var map = new google.maps.Map(document.getElementById(mapId), {
+    let map = new google.maps.Map(document.getElementById(mapId), {
         center: location,
         zoom: 14
     });
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
         position: location,
         map: map,
         title: "C\'est ici !"
@@ -108,7 +117,7 @@ $(function () {
 
         // Adding the user message in the chat window
         const msgUser = $("#content").val();
-        contChat(msgUser, false);
+        chatUser.add(msgUser);
 
         // Adding load animation
         loadBot();
@@ -120,12 +129,12 @@ $(function () {
             geoLocation = backEnd["geoLocation"];
             console.log("[BACK END] LOCATION : " + geoLocation);
 
-            contChat(response["answers"][0]);
+            chatBot.add(response["answers"][0]);
 
             // if geolocation then we display the Google Map
             if (geoLocation["route"].length !== 0) {
-                var mapId = "map" + String(numId);
-                contChat('<div id=' + mapId + ' class="map"></div>');
+                let mapId = "map" + String(numId);
+                chatMap.add('<div id=' + mapId + ' class="map"></div>');
                 initMap(geoLocation["geometry"], mapId);
                 numId += 1;
                 // Adding load animation

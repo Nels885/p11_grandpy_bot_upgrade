@@ -13,14 +13,12 @@ body {
 /* Chat containers */
 .cont-chat {
     border: 2px solid #00C49C;
-    /*
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
-    */
     background-color: #00C49C;
     border-radius: 10px;
     padding: 10px;
     margin: 10px 0;
+    min-width: 60%;
+    text-align: justify;
 }
 
 /* Darker chat container */
@@ -28,10 +26,6 @@ body {
     background-color: #313E52;
     border-color: #313E52 ;
     color: white;
-    /*
-    border-color: #ccc;
-    background-color: #ddd;
-    */
 }
 
 /* Clear floats */
@@ -42,7 +36,7 @@ body {
 }
 
 /* Style images */
-.cont-chat .avatar {
+.cont-chat .avatar.left {
     float: left;
     max-width: 60px;
     width: 100%;
@@ -51,8 +45,18 @@ body {
 }
 
 /* Style the right image */
+.cont-chat .avatar.right {
+    float: right;
+    max-width: 60px;
+    width: 100%;
+    margin-left: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
 .cont-chat img.right {
     float: right;
+    width: 85%;
     margin-left: 20px;
     margin-right: 0;
 }

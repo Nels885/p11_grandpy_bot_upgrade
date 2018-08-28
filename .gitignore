@@ -6,3 +6,4 @@ bot/static/css/bootstrap/bootstrap.css
 bot/static/js/jquery/jquery-3.3.1.js
 .coverage
 htmlcov/*
+bot/templates/test.html
