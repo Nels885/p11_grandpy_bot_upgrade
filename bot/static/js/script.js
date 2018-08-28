@@ -1,5 +1,6 @@
 const chat = $("#chat");
 var numId = 0;
+var backEnd, geoLocation, pageId;
 
 
 // Function for adding load animation
@@ -10,7 +11,7 @@ function loadBot() {
 
 
 // Function for display the answer of GrandpyBot or Anonymous
-function contChat(answer, bot=true) {
+function contChat(answer, bot = true) {
     var chatClass = "", avatar = "papybot.png", avatClass = "left";
 
     // Remove load animation
@@ -29,53 +30,39 @@ function ajaxError(error) {
     console.error("[AJAX] ERROR : " + error);
 
     contChat("Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!");
-    /*
-    chatBot("{{ config['MSG_BOT_ERROR_API'] }}");
-    */
 }
 
 
 // Function for search with API MediaWiki
-function apiWiki(loc, resp) {
-    var msgBot = resp["answers"][1];
-
-    // Adding load animation
-    loadBot();
-    resp["dataSearch"]["gscoord"] = loc["geometry"]["lat"] + "|" + loc["geometry"]["lng"];
-    $.get({
-        url: resp["urlApiWiki"],
-        data: resp["dataSearch"],
-        dataType: "json",
-    }).done(mediawikiSearchCallback).fail(ajaxError);
-
-    function mediawikiSearchCallback(response) {
-        const pageIdList = response["query"]["geosearch"];
-        var pageId = pageIdList[0]["pageid"];
-        // Number of the searched page
-        for (i=0; i<pageIdList.length; i++){
-            if (pageIdList[i]["title"] === loc["route"]) {
-                pageId = pageIdList[i]["pageid"];
-            }
-        }
-
-        console.log("[MEDIAWIKI] PAGE_ID : " + pageId);
-
-        resp["dataPageId"]["pageids"] = pageId;
-        $.get({
-            url: resp["urlApiWiki"],
-            data: resp["dataPageId"],
-            dataType: "json",
-        }).done(mediawikiPageidCallback).fail(ajaxError);
-
-        function mediawikiPageidCallback(response) {
-            const lien = "https://fr.wikipedia.org/wiki?curid=" + pageId;
-            const result = response["query"]["pages"][0]["extract"];
-            msgBot = msgBot + result;
-            console.log("[MEDIAWIKI] ANSWER_BOT : " + msgBot);
-
-            contChat(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');
+function mediawikiSearchCallback(response) {
+    const pageIdList = response["query"]["geosearch"];
+    pageId = pageIdList[0]["pageid"];
+    // Number of the searched page
+    for (let i = 0; i < pageIdList.length; i++) {
+        if (pageIdList[i]["title"] === geoLocation["route"]) {
+            pageId = pageIdList[i]["pageid"];
         }
     }
+
+    console.log("[MEDIAWIKI] PAGE_ID : " + pageId);
+
+    backEnd["dataPageId"]["pageids"] = pageId;
+    $.get({
+        url: backEnd["urlApiWiki"],
+        data: backEnd["dataPageId"],
+        dataType: "json",
+    }).done(mediawikiPageidCallback).fail(ajaxError);
+}
+
+
+// Function for displaying the response of the MediaWiki API
+function mediawikiPageidCallback(response) {
+    const lien = "https://fr.wikipedia.org/wiki?curid=" + pageId;
+    const result = response["query"]["pages"][0]["extract"];
+    msgBot = backEnd["answers"][1] + result;
+    console.log("[MEDIAWIKI] ANSWER_BOT : " + msgBot);
+
+    contChat(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');
 }
 
 
@@ -99,24 +86,20 @@ $(function () {
         e.preventDefault();
 
         // Adding the user message in the chat window
-        const msgUser = $('#content').val();
+        const msgUser = $("#content").val();
         contChat(msgUser, false);
-        /*
-        chat.append('<div class="cont-chat darker text-right">' +
-            '<img class="right avatar" src="../static/img/invite.png" alt="Avatar">' +
-            '<p>' + msgUser + '</p></div>');
-        */
 
         // Adding load animation
         loadBot();
 
         // AJAX requests to the post and displays the PapyBot message according to the user message
-        $.ajax({
-            method: "POST",
+        $.post({
             url: "/",
             data: {content: msgUser},
+            dataType: "json",
         }).done(function (response) {
-            const geoLocation = response["geoLocation"];
+            backEnd = response;
+            geoLocation = backEnd["geoLocation"];
             console.log("[BACK END] LOCATION : " + geoLocation);
 
             contChat(response["answers"][0]);
@@ -127,7 +110,14 @@ $(function () {
                 contChat('<div id=' + mapId + ' class="map"></div>');
                 initMap(geoLocation["geometry"], mapId);
                 numId += 1;
-                apiWiki(geoLocation, response);
+                // Adding load animation
+                loadBot();
+                backEnd["dataSearch"]["gscoord"] = geoLocation["geometry"]["lat"] + "|" + geoLocation["geometry"]["lng"];
+                $.get({
+                    url: backEnd["urlApiWiki"],
+                    data: backEnd["dataSearch"],
+                    dataType: "json",
+                }).done(mediawikiSearchCallback).fail(ajaxError);
             }
         }).fail(ajaxError);
     });

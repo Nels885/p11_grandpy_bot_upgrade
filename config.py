@@ -14,7 +14,7 @@ STOP_WORDS_JSON = os.path.join(basedir, "fr.json")
 Parameters for Google Maps
 ==========================
 """
-# GOOGLE_KEY = "<YOUR_GOOGLE_API_KEY>"
+GOOGLE_KEY = "<YOUR_GOOGLE_API_KEY>"
 
 
 """
