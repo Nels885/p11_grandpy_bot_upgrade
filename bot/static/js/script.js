@@ -3,6 +3,31 @@ var numId = 0;
 var backEnd, geoLocation, pageId;
 
 
+// Class to make ajax request
+var RequestAjax = {
+    // Initialize
+    init: function (method, url) {
+        this.method = method;
+        this.url = url;
+        this.dataType = "json";
+    },
+    ajax: function (data, result) {
+        $.ajax({
+            method: this.method,
+            url: this.url,
+            data: data,
+            dataType: this.dataType,
+        }).done(result).fail(ajaxError)
+    }
+};
+
+
+// Create Objects
+var backEndObject = Object.create(RequestAjax);
+backEndObject.init("POST", "/");
+var mediaWikiObject = Object.create(RequestAjax);
+
+
 // Function for adding load animation
 function loadBot() {
     chat.append('<div class="cont-chat text-center" id="load">' +
@@ -47,11 +72,7 @@ function mediawikiSearchCallback(response) {
     console.log("[MEDIAWIKI] PAGE_ID : " + pageId);
 
     backEnd["dataPageId"]["pageids"] = pageId;
-    $.get({
-        url: backEnd["urlApiWiki"],
-        data: backEnd["dataPageId"],
-        dataType: "json",
-    }).done(mediawikiPageidCallback).fail(ajaxError);
+    mediaWikiObject.ajax(backEnd["dataPageId"], mediawikiPageidCallback);
 }
 
 
@@ -93,12 +114,9 @@ $(function () {
         loadBot();
 
         // AJAX requests to the post and displays the PapyBot message according to the user message
-        $.post({
-            url: "/",
-            data: {content: msgUser},
-            dataType: "json",
-        }).done(function (response) {
+        backEndObject.ajax({content: msgUser}, function (response) {
             backEnd = response;
+            mediaWikiObject.init("GET", backEnd["urlApiWiki"]);
             geoLocation = backEnd["geoLocation"];
             console.log("[BACK END] LOCATION : " + geoLocation);
 
@@ -113,12 +131,8 @@ $(function () {
                 // Adding load animation
                 loadBot();
                 backEnd["dataSearch"]["gscoord"] = geoLocation["geometry"]["lat"] + "|" + geoLocation["geometry"]["lng"];
-                $.get({
-                    url: backEnd["urlApiWiki"],
-                    data: backEnd["dataSearch"],
-                    dataType: "json",
-                }).done(mediawikiSearchCallback).fail(ajaxError);
+                mediaWikiObject.ajax(backEnd["dataSearch"], mediawikiSearchCallback);
             }
-        }).fail(ajaxError);
+        });
     });
 });
