@@ -4,14 +4,15 @@ let backEnd, geoLocation, pageId;
 
 
 // Class to make ajax request
-let RequestAjax = {
+class RequestAjax {
     // Initialize
-    init: function (method, url) {
+    constructor(method, url) {
         this.method = method;
         this.url = url;
         this.dataType = 'json';
-    },
-    ajax: function (data, result) {
+    }
+
+    ajax(data, result) {
         $.ajax({
             method: this.method,
             url: this.url,
@@ -19,17 +20,18 @@ let RequestAjax = {
             dataType: this.dataType,
         }).done(result).fail(ajaxError)
     }
-};
+}
 
 
 // Class for display the answer of GrandpyBot or Anonymous
-let ContChat = {
-    init: function (chatClass, avatar, avatClass) {
+class ContChat {
+    constructor(chatClass, avatar, avatClass) {
         this.chatClass = chatClass;
         this.avatar = avatar;
         this.avatClass = avatClass;
-    },
-    add: function (answer) {
+    }
+
+    add(answer) {
         // Remove load animation
         $('#load').remove();
         chat.append('<div class="row"><div class="' + this.chatClass + '">' +
@@ -38,20 +40,16 @@ let ContChat = {
             scrollTop: $('#addMsg').offset().top
         }, 'slow');
     }
-};
+}
 
 // Create Ajax Objects
-let backEndObject = Object.create(RequestAjax);
-backEndObject.init('POST', '/');
-let mediaWikiObject = Object.create(RequestAjax);
+let backEndObject = new RequestAjax('POST', '/');
+let mediaWikiObjects;
 
 // Create Chat Objects
-let chatBot = Object.create(ContChat);
-chatBot.init('cont-chat mr-auto', 'papybot.png', 'left avatar');
-let chatUser = Object.create(ContChat);
-chatUser.init('cont-chat darker text-right ml-auto', 'invite.png', 'right avatar');
-let chatMap = Object.create(ContChat);
-chatMap.init('cont-chat col-lg-12 mr-auto', 'papybot.png', 'left avatar');
+let chatBot = new ContChat('cont-chat mr-auto', 'papybot.png', 'left avatar');
+let chatUser = new ContChat('cont-chat darker text-right ml-auto', 'invite.png', 'right avatar');
+let chatMap = new ContChat('cont-chat col-lg-12 mr-auto', 'papybot.png', 'left avatar');
 
 
 // Function for adding load animation
@@ -80,7 +78,6 @@ function mediawikiSearchCallback(response) {
             pageId = pageIdList[i]['pageid'];
         }
     }
-
     console.log('[MEDIAWIKI] PAGE_ID : ' + pageId);
 
     backEnd['dataPageId']['pageids'] = pageId;
@@ -128,7 +125,7 @@ $(function () {
         // AJAX requests to the post and displays the PapyBot message according to the user message
         backEndObject.ajax({content: msgUser}, function (response) {
             backEnd = response;
-            mediaWikiObject.init('GET', backEnd['urlApiWiki']);
+            mediaWikiObject = new RequestAjax('GET', backEnd['urlApiWiki']);
             geoLocation = backEnd['geoLocation'];
             console.log('[BACK END] LOCATION : ' + geoLocation);
 

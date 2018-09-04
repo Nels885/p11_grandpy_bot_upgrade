@@ -2,7 +2,6 @@
     font-family: '3dumbregular';
     src: url('../fonts/3dumb/3Dumb-webfont.eot');
     src: url('../fonts/3dumb/3Dumb-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/3dumb/3Dumb-webfont.woff2') format('woff2'),
          url('../fonts/3dumb/3Dumb-webfont.woff') format('woff'),
          url('../fonts/3dumb/3Dumb-webfont.ttf') format('truetype'),
          url('../fonts/3dumb/3Dumb-webfont.svg#3dumbregular') format('svg');
@@ -63,8 +62,8 @@ h1 {
     float: left;
     max-width: 60px;
     width: 100%;
-    margin-right: 20px;
     border-radius: 50%;
+    margin-right: 20px;
 }
 
 /* Style the right image */
@@ -72,8 +71,8 @@ h1 {
     float: right;
     max-width: 60px;
     width: 100%;
-    margin-left: 20px;
     border-radius: 50%;
+    margin-left: 20px;
 }
 
 /* Style the right image */
@@ -81,7 +80,35 @@ h1 {
     float: right;
     width: 85%;
     margin-left: 20px;
-    margin-right: 0;
+}
+
+/* Parameters for mobiles */
+@media all and (max-device-width: 480px) {
+    body {
+        font-size: 0.8em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    footer {
+        position: absolute !important;
+    }
+
+    .cont-chat .avatar.left {
+        max-width: 40px;
+        margin-right: 10px;
+    }
+
+    .cont-chat .avatar.right {
+        max-width: 40px;
+        margin-left: 10px;
+    }
+
+    .map {
+        width: 100%;
+    }
 }
 
 /* Style forLoading for the chat */
