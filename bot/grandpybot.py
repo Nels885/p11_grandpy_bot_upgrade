@@ -20,10 +20,10 @@ def grandpy_bot(message):
 
     # search with keywords using google map and mediawiki APIs
     gmaps = GoogleMaps(GOOGLE_KEY)
-    if "adresse" in key_words:
+    if len(key_words) != 0:
         gmaps.geo_search(key_words)
         msgs_bot.append(random_msg_start(MSG_START).format(gmaps.format_address))
-        msgs_bot.append(INFO_BOT)
+        msgs_bot.append(random_msg_start(INFO_BOT))
     else:
         msgs_bot.append(random_msg_start(MSG_BOT_ERROR))
 
@@ -32,5 +32,10 @@ def grandpy_bot(message):
 
 
 def random_msg_start(msg):
+    """
+    ## Choose a random GrandPy Bot answer
+    :param msg: Answers lists
+    :return: Answer chosen
+    """
     number = randint(0, len(msg) - 1)
     return msg[number]

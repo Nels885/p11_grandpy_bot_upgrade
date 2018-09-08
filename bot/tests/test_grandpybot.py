@@ -23,5 +23,6 @@ class TestGrandpyBot:
         Test that we have a location result
         :return: return FAILED if route is different of 'Cité Paradis'
         """
-        msg_bot, location = grandpy_bot(MSG_TEST_OC)
-        assert location['route'] == self.route
+        for msgTestOc in MSG_TEST_OC:
+            msg_bot, location = grandpy_bot(msgTestOc)
+            assert location['route'] == self.route

@@ -35,7 +35,8 @@ class ContChat {
         // Remove load animation
         $('#load').remove();
         chat.append('<div class="row"><div class="' + this.chatClass + '">' +
-            '<img class="' + this.avatClass + '" src="../static/img/' + this.avatar + '" alt="Avatar"><p>' + answer + '</p></div></div>');
+            '<img class="' + this.avatClass + '" src="../static/img/' + this.avatar + '" alt="Avatar"><p>' + answer +
+            '</p></div></div>');
         $('html, body').animate({
             scrollTop: $('#addMsg').offset().top
         }, 'slow');
@@ -44,7 +45,7 @@ class ContChat {
 
 // Create Ajax Objects
 let backEndObject = new RequestAjax('POST', '/');
-let mediaWikiObjects;
+let mediaWikiObject;
 
 // Create Chat Objects
 let chatBot = new ContChat('cont-chat mr-auto', 'papybot.png', 'left avatar');
@@ -89,7 +90,13 @@ function mediawikiSearchCallback(response) {
 function mediawikiPageidCallback(response) {
     const lien = 'https://fr.wikipedia.org/wiki?curid=' + pageId;
     const result = response['query']['pages'][0]['extract'];
-    msgBot = backEnd['answers'][1] + result;
+    console.log('[MEDIAWIKI] extract : ' + result);
+    if (result.length !== 0) {
+        msgBot = backEnd['answers'][1] + result;
+    } else {
+        msgBot = backEnd['answers'][1] +
+            "Bon, j'ai un soucis pour récupérer les informations mais vous pouvez les trouver à cette page ";
+    }
     console.log('[MEDIAWIKI] ANSWER_BOT : ' + msgBot);
 
     chatBot.add(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');

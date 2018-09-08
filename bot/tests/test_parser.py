@@ -33,6 +33,7 @@ class TestParser:
         Test the keywords from OpenClassRooms
         :return: return FAILED if result is different of the list("adresse","openclassrooms")
         """
-        self.parser = Parser(self.stopWordsJson, MSG_TEST_OC)
-        result = self.parser.msg_analysis()
-        assert result == KEY_WORDS
+        for msgTestOc in MSG_TEST_OC:
+            self.parser = Parser(self.stopWordsJson, msgTestOc)
+            result = self.parser.msg_analysis()
+            assert result == KEY_WORDS

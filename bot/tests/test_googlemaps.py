@@ -18,6 +18,11 @@ class TestGoogleMaps:
         self.gmaps = GoogleMaps(app.config["GOOGLE_KEY"])
 
     def test_api_return(self, monkeypatch):
+        """
+        Test if the API returns information through mocks
+        :param monkeypatch: use mocks
+        :return: FAILED if results are different from values in config.py
+        """
         script = self.gmaps
 
         def mockreturn(gooMaps):
@@ -28,6 +33,11 @@ class TestGoogleMaps:
         assert script.format_address == FORMATTED_ADDRESS and script.location == LOCATION
 
     def test_api_no_found(self, monkeypatch):
+        """
+        Test if The API is no found
+        :param monkeypatch: use mocks
+        :return: FAILED if different to 0
+        """
         script = self.gmaps
 
         def mockreturn(gooMaps):
@@ -38,6 +48,10 @@ class TestGoogleMaps:
         assert len(script.format_address) == 0 and len(script.location["geometry"]) == 0
 
     def test_api_no_key_words(self):
+        """
+        Test the API if there are no keywords
+        :return: FAILED if different to 0
+        """
         script = self.gmaps
         script.geo_search("")
         assert len(script.format_address) == 0 and len(script.location["geometry"]) == 0

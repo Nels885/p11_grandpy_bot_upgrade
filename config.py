@@ -8,14 +8,12 @@ Stop Words file
 basedir = os.path.abspath(os.path.dirname(__file__))
 STOP_WORDS_JSON = os.path.join(basedir, "fr.json")
 
-
 """
 ==========================
 Parameters for Google Maps
 ==========================
 """
-GOOGLE_KEY = "AIzaSyCOLBY258bj559lN6Isf6h7sTWVKqaTHnc"
-
+GOOGLE_KEY = "<YOUR_GOOGLE_API_KEY>"
 
 """
 =================================
@@ -26,13 +24,14 @@ MSG_START = ["Bien sûr mon poussin ! La voici : {}.",
              "La voici mon seigneur : {}",
              "Cher(e) Anonyme, la réponse est : {}"]
 
-INFO_BOT = "Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? "
+INFO_BOT = ["Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? ",
+            "J'ai une petite histoire à te raconter sur ce quartier. "]
 
-MSG_BOT_ERROR = ["Je n'ai pas trouvé de réponse à votre question !! Demandez-moi l'adresse d'un lieu ?",
-                 "Erreur, je ne sais répondre qu'à des questions sur une adresse d'un lieu connu !!"]
+MSG_BOT_ERROR = ["Je n'ai pas trouvé de réponse à votre question !! Êtes-vous sûr que ce lieu existe ?",
+                 "Désolé mon poussin, je ne sais répondre qu'à des questions sur des lieux !!",
+                 "Je ne comprends pas la question !! Êtes-vous sur ne pas avoir fait de fautes d'orthographe ?"]
 
 MSG_BOT_ERROR_API = "Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!"
-
 
 """
 ========================

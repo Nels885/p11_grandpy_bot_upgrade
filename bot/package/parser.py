@@ -5,7 +5,8 @@ from ..controler import log
 
 class Parser:
     SYMBOLS = ["!", "?", ",", ".", "'", "-", "*", "+", "=", "/"]
-    WORD_SEARCH = ["adresse", "nom"]
+    WORD_SEARCH = ["adresse", "trouve", "rue"]
+    MANDATORY_KEYWORD = "adresse"
     WORD_GREETING = ["salut", "bonjour", "coucou", "hello", "grandpy", "bot", "papy", "robot", "papybot"]
 
     def __init__(self, file, message):
@@ -29,6 +30,8 @@ class Parser:
         for word in words_list:
             if word not in self.WORD_GREETING:
                 self.keyWords.append(word)
+        if not self.__search_keyword():
+            self.keyWords = []
         log.info("PARSER - KEY WORDS OUT : %s" % self.keyWords)
         return self.keyWords
 
@@ -53,3 +56,17 @@ class Parser:
         for symbol in self.SYMBOLS:
             msg = msg.replace(symbol, " ")
         return msg.split()
+
+    def __search_keyword(self):
+        """
+        ## Search the mandatory keyword
+        :return: True if keyword has been found
+        """
+        for word in self.keyWords:
+            print(word)
+            if word in self.WORD_SEARCH:
+                pos = self.keyWords.index(word)
+                self.keyWords[pos] = self.MANDATORY_KEYWORD
+                return True
+        return False
+
