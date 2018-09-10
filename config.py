@@ -55,6 +55,7 @@ WIKI_PARA_PAGE_ID = {
     "prop": "extracts",
     "explaintext": "true",
     "exsectionformat": "plain",
+    "exintro": "true",
     "exsentences": "3",
     "format": "json",
     "formatversion": "2"
