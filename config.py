@@ -39,9 +39,7 @@ Parameters for MediaWiki
 ========================
 """
 WIKI_URL_JS = "https://fr.wikipedia.org/w/api.php?callback=?"
-# WIKI_URL_JS = "https://www.wikipedia.org/w/api.php?callback=?"
 WIKI_URL = "https://fr.wikipedia.org/w/api.php?"
-
 
 WIKI_PARA_SEARCH = {
     "action": "query",
@@ -52,7 +50,6 @@ WIKI_PARA_SEARCH = {
     "formatversion": "2"
 }
 
-"""
 WIKI_PARA_PAGE_ID = {
     "action": "query",
     "prop": "extracts",
@@ -62,17 +59,3 @@ WIKI_PARA_PAGE_ID = {
     "format": "json",
     "formatversion": "2"
 }
-"""
-WIKI_PARA_PAGE_ID = {
-    "action": "query",
-    "prop": "extracts",
-    "explaintext": "true",
-    "exsectionformat": "plain",
-    "exsentences": "3",
-    "exintro": "true",
-    "format": "json",
-    "formatversion": "2"
-}
-
-
-
