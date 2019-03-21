@@ -1,8 +1,8 @@
 from random import randint
 
 from config import *
-from .package.parser import *
-from .package.googlemaps import *
+from .package.parser import Parser
+from .package.googlemaps import GoogleMaps
 from .controler import log
 
 

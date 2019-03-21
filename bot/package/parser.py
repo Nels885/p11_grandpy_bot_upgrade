@@ -69,4 +69,3 @@ class Parser:
                 self.keyWords[pos] = self.MANDATORY_KEYWORD
                 return True
         return False
-
