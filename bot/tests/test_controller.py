@@ -1,12 +1,10 @@
-import pytest
-
 from urllib import request
 from flask_testing import LiveServerTestCase, TestCase
 
 from .. import app
 
 
-class TestControler(LiveServerTestCase, TestCase):
+class TestController(LiveServerTestCase, TestCase):
 
     render_templates = False
 

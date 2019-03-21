@@ -1,6 +1,6 @@
 import json
 
-from ..controler import log
+from ..controller import log
 
 
 class Parser:
@@ -67,5 +67,6 @@ class Parser:
             if word in self.WORD_SEARCH:
                 pos = self.keyWords.index(word)
                 self.keyWords[pos] = self.MANDATORY_KEYWORD
-                return True
+                # return True
+                return False
         return False

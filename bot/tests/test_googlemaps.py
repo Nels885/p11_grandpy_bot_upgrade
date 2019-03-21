@@ -1,5 +1,3 @@
-import pytest
-
 from ..package.googlemaps import GoogleMaps
 from .config import *
 

@@ -1,5 +1,3 @@
-import pytest
-
 from ..package.parser import Parser
 from .config import *
 

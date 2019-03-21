@@ -2,7 +2,6 @@ language: python
 python:
   - "3.5"
   - "3.6"
-  - "3.7"
 
 # safelist
 branches:
@@ -16,3 +15,4 @@ install:
 # command to run tests
 script:
   - pytest # or py.test for Python versions 3.5 and below
+  - flake8

@@ -1,5 +1,3 @@
-import pytest
-
 from ..grandpybot import grandpy_bot
 from .config import *
 
