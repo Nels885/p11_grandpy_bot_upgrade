@@ -1,3 +1,4 @@
+import re
 import json
 
 from ..controller import log
@@ -6,7 +7,6 @@ from ..controller import log
 class Parser:
     WORD_SEARCH = ["adresse", "trouve", "rue"]
     MANDATORY_KEYWORD = "adresse"
-    WORD_GREETING = ["salut", "bonjour", "coucou", "hello", "grandpy", "bot", "papy", "robot", "papybot"]
 
     def __init__(self, file, message):
         """
@@ -27,9 +27,9 @@ class Parser:
         words_list = self._msg_filter()
         log.info("PARSER - KEY WORDS IN : %s" % words_list)
         for word in words_list:
-            if word not in self.WORD_GREETING:
+            if word not in self.stopWordsList["greeting"]:
                 self.keyWords.append(word)
-        if not self.__search_keyword():
+        if not self._search_keyword():
             self.keyWords = []
         log.info("PARSER - KEY WORDS OUT : %s" % self.keyWords)
         return self.keyWords
@@ -39,32 +39,33 @@ class Parser:
         ## Filtering the question to keep only the keywords
         :return: List of keywords
         """
-        words_list = self.__symbol_replace()
+        words_list = self._symbol_replace()
         log.info("PARSER - FORMAT THE QUESTION : %s" % words_list)
-        for stopWord in self.stopWordsList['fr_words']:
+        for stopWord in self.stopWordsList["fr_words"]:
             if stopWord in words_list:
                 words_list.remove(stopWord)
         return words_list
 
-    def __symbol_replace(self):
+    def _symbol_replace(self):
         """
         ## Turns the question into a word list
         :return: Word list
         """
-        msg = self.message
-        for symbol in self.stopWordsList['symbols']:
-            msg = msg.replace(symbol, " ")
+        msg = re.sub(r'[^\w\s]', ' ', self.message)
         return msg.split()
 
-    def __search_keyword(self):
+    def _search_keyword(self):
         """
         ## Search the mandatory keyword
         :return: True if keyword has been found
         """
         for word in self.keyWords:
             print(word)
-            if word in self.stopWordsList['key_words']:
+            if word in self.stopWordsList["key_words"]:
                 pos = self.keyWords.index(word)
                 self.keyWords[pos] = self.MANDATORY_KEYWORD
                 return True
         return False
+
+    def _identify_request(self):
+        pass
