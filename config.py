@@ -6,7 +6,7 @@ Stop Words file
 ===============
 """
 basedir = os.path.abspath(os.path.dirname(__file__))
-STOP_WORDS_JSON = os.path.join(basedir, "fr.json")
+STOP_WORDS_JSON = os.path.join(basedir, "stopwords.json")
 
 """
 ==========================

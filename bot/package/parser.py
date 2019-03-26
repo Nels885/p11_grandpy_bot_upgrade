@@ -4,7 +4,6 @@ from ..controller import log
 
 
 class Parser:
-    SYMBOLS = ["!", "?", ",", ".", "'", "-", "*", "+", "=", "/"]
     WORD_SEARCH = ["adresse", "trouve", "rue"]
     MANDATORY_KEYWORD = "adresse"
     WORD_GREETING = ["salut", "bonjour", "coucou", "hello", "grandpy", "bot", "papy", "robot", "papybot"]
@@ -42,7 +41,7 @@ class Parser:
         """
         words_list = self.__symbol_replace()
         log.info("PARSER - FORMAT THE QUESTION : %s" % words_list)
-        for stopWord in self.stopWordsList:
+        for stopWord in self.stopWordsList['fr_words']:
             if stopWord in words_list:
                 words_list.remove(stopWord)
         return words_list
@@ -53,7 +52,7 @@ class Parser:
         :return: Word list
         """
         msg = self.message
-        for symbol in self.SYMBOLS:
+        for symbol in self.stopWordsList['symbols']:
             msg = msg.replace(symbol, " ")
         return msg.split()
 
@@ -64,7 +63,7 @@ class Parser:
         """
         for word in self.keyWords:
             print(word)
-            if word in self.WORD_SEARCH:
+            if word in self.stopWordsList['key_words']:
                 pos = self.keyWords.index(word)
                 self.keyWords[pos] = self.MANDATORY_KEYWORD
                 return True
