@@ -1,5 +1,4 @@
 import re
-import json
 
 from ..controller import log
 
@@ -8,22 +7,23 @@ class Parser:
     WORD_SEARCH = ["adresse", "trouve", "rue"]
     MANDATORY_KEYWORD = "adresse"
 
-    def __init__(self, file, message):
+    def __init__(self, stop_words):
         """
         ## Initialize class KillParser
         :param file: File in json format grouping the words to be deleted from the message
         :param message: User's question
         :return:
         """
-        self.message = message.lower()
+        self.message = None
         self.keyWords = []
-        self.stopWordsList = json.load(open(file, 'r'))
+        self.stopWordsList = stop_words
 
-    def msg_analysis(self):
+    def msg_analysis(self, message):
         """
         ## Analysis of the question posed by the user
         :return: Answer of GrandPy Bot
         """
+        self.message = message.lower()
         words_list = self._msg_filter()
         log.info("PARSER - KEY WORDS IN : %s" % words_list)
         for word in words_list:
@@ -51,7 +51,8 @@ class Parser:
         ## Turns the question into a word list
         :return: Word list
         """
-        msg = re.sub(r'[^\w\s]', ' ', self.message)
+        msg = re.sub(r"[^\w\s]+", " ", self.message)
+        log.info("PARSER - SUP PUNCTUATION : %s" % msg)
         return msg.split()
 
     def _search_keyword(self):
@@ -60,8 +61,8 @@ class Parser:
         :return: True if keyword has been found
         """
         for word in self.keyWords:
-            print(word)
-            if word in self.stopWordsList["key_words"]:
+            # print(word)
+            if len(self.keyWords) > 1 and word in self.stopWordsList["key_words"]:
                 pos = self.keyWords.index(word)
                 self.keyWords[pos] = self.MANDATORY_KEYWORD
                 return True

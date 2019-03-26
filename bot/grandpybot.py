@@ -5,6 +5,8 @@ from .package.parser import Parser
 from .package.googlemaps import GoogleMaps
 from .controller import log
 
+pars = Parser(STOP_WORDS_JSON)
+
 
 def grandpy_bot(message):
     """
@@ -15,8 +17,7 @@ def grandpy_bot(message):
     msgs_bot = []
 
     # Parsing of user's message
-    pars = Parser(STOP_WORDS_JSON, message)
-    key_words = pars.msg_analysis()
+    key_words = pars.msg_analysis(message)
 
     # search with keywords using google map and mediawiki APIs
     gmaps = GoogleMaps(GOOGLE_KEY)

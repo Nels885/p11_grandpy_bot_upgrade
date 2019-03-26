@@ -9,7 +9,7 @@ TESTING = True
 LIVESERVER_PORT = 8943
 LIVESERVER_TIMEOUT = 10
 
-KEY_WORDS = ["adresse", "openclassrooms"]
+KEY_WORDS_TEST = ["adresse", "openclassrooms"]
 
 FORMATTED_ADDRESS = "7 Cité Paradis, 75010 Paris, France"
 

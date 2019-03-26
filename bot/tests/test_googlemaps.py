@@ -1,5 +1,5 @@
 from ..package.googlemaps import GoogleMaps
-from .config import KEY_WORDS, FORMATTED_ADDRESS, LOCATION
+from .config import KEY_WORDS_TEST, FORMATTED_ADDRESS, LOCATION
 
 from .. import app
 
@@ -27,7 +27,7 @@ class TestGoogleMaps:
             return self.results
 
         monkeypatch.setattr(script.gooMaps, "geocode", mockreturn)
-        script.geo_search(KEY_WORDS)
+        script.geo_search(KEY_WORDS_TEST)
         assert script.format_address == FORMATTED_ADDRESS and script.location == LOCATION
 
     def test_api_no_found(self, monkeypatch):
@@ -42,7 +42,7 @@ class TestGoogleMaps:
             return []
 
         monkeypatch.setattr(script.gooMaps, "geocode", mockreturn)
-        script.geo_search(KEY_WORDS)
+        script.geo_search(KEY_WORDS_TEST)
         assert len(script.format_address) == 0 and len(script.location["geometry"]) == 0
 
     def test_api_no_key_words(self):
