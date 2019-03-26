@@ -15,7 +15,6 @@ class Parser:
         :return:
         """
         self.message = None
-        self.keyWords = []
         self.stopWordsList = stop_words
 
     def msg_analysis(self, message):
@@ -26,13 +25,13 @@ class Parser:
         self.message = message.lower()
         words_list = self._msg_filter()
         log.info("PARSER - KEY WORDS IN : %s" % words_list)
-        for word in words_list:
-            if word not in self.stopWordsList["greeting"]:
-                self.keyWords.append(word)
-        if not self._search_keyword():
-            self.keyWords = []
-        log.info("PARSER - KEY WORDS OUT : %s" % self.keyWords)
-        return self.keyWords
+        words_list = self._identify_message(words_list)
+        # for word in words_list:
+        #     if word not in self.stopWordsList["greeting"]:
+        #         self.keyWords.append(word)
+
+        log.info("PARSER - KEY WORDS OUT : %s" % words_list)
+        return words_list
 
     def _msg_filter(self):
         """
@@ -55,18 +54,26 @@ class Parser:
         log.info("PARSER - SUP PUNCTUATION : %s" % msg)
         return msg.split()
 
-    def _search_keyword(self):
+    def _search_keyword(self, words_list):
         """
         ## Search the mandatory keyword
-        :return: True if keyword has been found
+        :return: keyword position has been found
         """
-        for word in self.keyWords:
+        pos = None
+        for word in words_list:
             # print(word)
-            if len(self.keyWords) > 1 and word in self.stopWordsList["key_words"]:
-                pos = self.keyWords.index(word)
-                self.keyWords[pos] = self.MANDATORY_KEYWORD
-                return True
-        return False
+            if word in self.stopWordsList["key_words"]:
+                pos = words_list.index(word)
+        return pos
 
-    def _identify_request(self):
-        pass
+    def _identify_message(self, words_list):
+        pos = self._search_keyword(words_list)
+        if pos is not None:
+            words_list[pos] = self.MANDATORY_KEYWORD
+            if len(words_list[pos:]) > 1:
+                return words_list[pos:]
+        return []
+
+
+
+
