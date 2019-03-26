@@ -42,7 +42,7 @@ class TestController(LiveServerTestCase, TestCase):
         Test if invalid Content-Type
         :return: return FAILED if different from code 400
         """
-        response = self.client.post("/")
+        response = self.client.post("/", headers={"content-type": ""})
         self.assertEqual(response.status_code, 400)
 
     def test_msg_bot_invalid_request(self):
