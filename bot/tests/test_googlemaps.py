@@ -1,5 +1,5 @@
 from ..package.googlemaps import GoogleMaps
-from .config import *
+from .config import KEY_WORDS, FORMATTED_ADDRESS, LOCATION
 
 from .. import app
 

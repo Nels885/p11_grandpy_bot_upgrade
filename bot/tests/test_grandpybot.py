@@ -1,5 +1,5 @@
 from ..grandpybot import grandpy_bot
-from .config import *
+from .config import MSG_TEST_NO_RESULT, MSG_TEST_OC
 
 
 class TestGrandpyBot:

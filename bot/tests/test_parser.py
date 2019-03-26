@@ -1,5 +1,5 @@
 from ..package.parser import Parser
-from .config import *
+from .config import MSG_TEST_NO_RESULT, MSG_TEST_OC, KEY_WORDS
 
 from .. import app
 

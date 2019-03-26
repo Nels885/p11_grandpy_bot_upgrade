@@ -1,6 +1,6 @@
 from random import randint
 
-from config import *
+from config import STOP_WORDS_JSON, GOOGLE_KEY, MSG_START, INFO_BOT, MSG_BOT_ERROR
 from .package.parser import Parser
 from .package.googlemaps import GoogleMaps
 from .controller import log

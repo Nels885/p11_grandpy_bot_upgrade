@@ -2,6 +2,6 @@
 exclude =
     .git,
     __pycache__,
+    __init__.py,
     venv,
-    tests,
 max-line-length = 140

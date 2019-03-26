@@ -67,6 +67,5 @@ class Parser:
             if word in self.WORD_SEARCH:
                 pos = self.keyWords.index(word)
                 self.keyWords[pos] = self.MANDATORY_KEYWORD
-                # return True
-                return False
+                return True
         return False

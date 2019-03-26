@@ -61,7 +61,3 @@ class TestController(LiveServerTestCase, TestCase):
         params = {"content": "test"}
         response = self.client.post("/", data=params, headers=self.headers)
         self.assertEqual(response.status_code, 200)
-
-
-
-
