@@ -73,7 +73,3 @@ class Parser:
             if len(words_list[pos:]) > 1:
                 return words_list[pos:]
         return []
-
-
-
-
