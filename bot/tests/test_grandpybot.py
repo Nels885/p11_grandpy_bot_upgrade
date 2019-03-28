@@ -8,6 +8,7 @@ class TestGrandpyBot:
 
     def setup_method(self):
         self.route = "Cité Paradis"
+        self.address = "7 Cité Paradis, 75010 Paris, France"
         self.location = {'geometry': {"lng": 2.350564700000001, "lat": 48.8747578}, 'route': "Cité Paradis"}
 
     def test_grandpy_bot_no_result(self):
@@ -28,9 +29,10 @@ class TestGrandpyBot:
 
             def mockreturn(grandpybot):
                 gmaps.location = self.location
+                gmaps.format_address = self.address
                 return True
             monkeypatch.setattr(gmaps, "geo_search", mockreturn)
 
             msg_bot, location = grandpy_bot(msgTestOc)
             assert location['route'] == self.route
-            assert msg_bot[1] in app.config["INFO_BOT"]
+            assert msg_bot[0] not in app.config["MSG_BOT_ERROR"]
