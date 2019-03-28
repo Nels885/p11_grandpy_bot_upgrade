@@ -1,0 +1,19 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+
+# safelist
+branches:
+  only:
+    - staging
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+
+# command to run tests
+script:
+  - coverage run --source="bot" -m pytest
+  - coverage report
+  - flake8

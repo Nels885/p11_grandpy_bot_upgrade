@@ -1,12 +1,10 @@
-import pytest
-
 from urllib import request
 from flask_testing import LiveServerTestCase, TestCase
 
 from .. import app
 
 
-class TestControler(LiveServerTestCase, TestCase):
+class TestController(LiveServerTestCase, TestCase):
 
     render_templates = False
 
@@ -44,7 +42,7 @@ class TestControler(LiveServerTestCase, TestCase):
         Test if invalid Content-Type
         :return: return FAILED if different from code 400
         """
-        response = self.client.post("/")
+        response = self.client.post("/", headers={"content-type": ""})
         self.assertEqual(response.status_code, 400)
 
     def test_msg_bot_invalid_request(self):
@@ -63,7 +61,3 @@ class TestControler(LiveServerTestCase, TestCase):
         params = {"content": "test"}
         response = self.client.post("/", data=params, headers=self.headers)
         self.assertEqual(response.status_code, 200)
-
-
-
-

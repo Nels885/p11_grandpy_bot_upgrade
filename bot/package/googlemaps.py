@@ -1,6 +1,6 @@
 import googlemaps
 
-from ..controler import log
+from ..controller import log
 
 
 class GoogleMaps:

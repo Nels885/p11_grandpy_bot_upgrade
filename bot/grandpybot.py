@@ -1,9 +1,12 @@
 from random import randint
 
-from config import *
-from .package.parser import *
-from .package.googlemaps import *
-from .controler import log
+from config import STOP_WORDS_JSON, GOOGLE_KEY, MSG_START, INFO_BOT, MSG_BOT_ERROR
+from .package.parser import Parser
+from .package.googlemaps import GoogleMaps
+from .controller import log
+
+pars = Parser(STOP_WORDS_JSON)
+gmaps = GoogleMaps(GOOGLE_KEY)
 
 
 def grandpy_bot(message):
@@ -15,11 +18,9 @@ def grandpy_bot(message):
     msgs_bot = []
 
     # Parsing of user's message
-    pars = Parser(STOP_WORDS_JSON, message)
-    key_words = pars.msg_analysis()
+    key_words = pars.msg_analysis(message)
 
     # search with keywords using google map and mediawiki APIs
-    gmaps = GoogleMaps(GOOGLE_KEY)
     if len(key_words) != 0:
         gmaps.geo_search(key_words)
         msgs_bot.append(random_msg_start(MSG_START).format(gmaps.format_address))
