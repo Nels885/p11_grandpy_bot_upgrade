@@ -60,3 +60,17 @@ WIKI_PARA_PAGE_ID = {
     "format": "json",
     "formatversion": "2"
 }
+
+"""
+=============================
+Parameters for OpenWeatherMap
+=============================
+"""
+
+OWM_KEY = "445d3f698420610fbda4f8e32f9d92a5"
+
+OWM_URL = "https://api.openweathermap.org/data/2.5/weather?"
+
+OWN_PARA = {
+    "appid": OWM_KEY,
+}
