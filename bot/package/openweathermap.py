@@ -29,4 +29,3 @@ class OpenWeatherMap:
     def icon(self, data):
         icon_id = data["weather"][0]["icon"]
         return self.URL_ICON + icon_id + ".png"
-
