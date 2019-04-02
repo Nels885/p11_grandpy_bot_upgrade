@@ -11,21 +11,41 @@ class OpenWeatherMap:
         self.params = params
 
     def result(self, city, country):
+        """
+        ## Shows the different values of the weather for the city you are looking for
+        :param city: Name of the city sought
+        :param country: Name of the country
+        :return: Weather data dictionary
+        """
+        data = self.get_request(city, country)
+        if data["cod"] == 200:
+            temp = "%d°C" % data["main"]["temp"]
+            desc = data["weather"][0]["description"]
+            icon = self.icon(data)
+            return {"temp": temp, "desc": desc, "icon": icon}
+        return None
+
+    def get_request(self, city, country):
+        """
+        ## Queries to the OpenWeatherMap API
+        :param city: Name of the city sought
+        :param country: Name of the country
+        :return: Raw data in json format
+        """
         if len(country) == 0:
             self.params["q"] = city.upper()
         else:
             self.params["q"] = city.upper() + "," + country.upper()
-        data = self.get_request()
-        temp = data["main"]["temp"]
-        print("température: %d" % temp)
-        return data
-
-    def get_request(self):
         response = requests.get(self.URL, params=self.params)
         data = response.json()
         log.info("WEATHER - DATA : %s" % data)
         return data
 
     def icon(self, data):
+        """
+        ## Get the link to the icon that corresponds to the weather
+        :param data: Raw data in json format
+        :return: Icon link OpenWeatherMap
+        """
         icon_id = data["weather"][0]["icon"]
         return self.URL_ICON + icon_id + ".png"

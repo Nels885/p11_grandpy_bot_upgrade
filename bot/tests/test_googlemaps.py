@@ -4,6 +4,7 @@ from .config import KEY_WORDS_TEST, FORMATTED_ADDRESS, LOCATION
 from .. import app
 
 
+# noinspection PyAttributeOutsideInit,SpellCheckingInspection
 class TestGoogleMaps:
 
     def setup_method(self):
@@ -53,3 +54,12 @@ class TestGoogleMaps:
         script = self.gmaps
         script.geo_search("")
         assert len(script.format_address) == 0 and len(script.location["geometry"]) == 0
+
+    def test_geo_search_error(self):
+        """
+        Test if heo_search function return error
+        :return: FAILED if different de False
+        """
+        script = self.gmaps
+        script.geo_search([])
+        assert not script.error

@@ -22,6 +22,7 @@ class GoogleMaps:
         :param key_words: keywords to do research
         :return: Booleen based on information found by geocoding API
         """
+        self.error = True
         self.location = {'geometry': '', 'route': ''}
         if len(key_words) != 0:
             search = " ".join(key_words)

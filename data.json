@@ -1,8 +1,8 @@
 {
   "msg_start": [
-    "Bien sûr mon poussin ! La voici : {}.",
-    "La voici mon seigneur : {}",
-    "Cher(e) Anonyme, la réponse est : {}"
+    "Bien sûr mon poussin ! La voici : {address}.",
+    "La voici mon seigneur : {address}",
+    "Cher(e) Anonyme, la réponse est : {address}"
   ],
   "info_bot": [
     "Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? ",

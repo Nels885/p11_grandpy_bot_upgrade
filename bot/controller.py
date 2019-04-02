@@ -36,7 +36,7 @@ def msg_bot():
             answer = request.form["content"]
 
             # Analysis of the question by GrandPy Bot
-            answers_bot, location = grandpy_bot(answer)
+            answers_bot, location, weath = grandpy_bot(answer)
 
             # load animation test
             time.sleep(2)
@@ -44,6 +44,7 @@ def msg_bot():
             return jsonify(status="OK",
                            answers=answers_bot,
                            geoLocation=location,
+                           weather=weath,
                            urlApiWiki=app.config["WIKI_URL_JS"],
                            dataSearch=app.config["WIKI_PARA_SEARCH"],
                            dataPageId=app.config["WIKI_PARA_PAGE_ID"])
