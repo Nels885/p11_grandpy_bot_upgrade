@@ -13,7 +13,7 @@ class GoogleMaps:
         self.gooMaps = googlemaps.Client(key=google_key)
         self.geocode_result = []
         self.format_address = ""
-        self.location = {'geometry': '', 'route': ''}
+        self.location = {}
         self.error = True
 
     def geo_search(self, key_words):
@@ -22,6 +22,7 @@ class GoogleMaps:
         :param key_words: keywords to do research
         :return: Booleen based on information found by geocoding API
         """
+        self.location = {'geometry': '', 'route': ''}
         if len(key_words) != 0:
             search = " ".join(key_words)
             self.geocode_result = self.gooMaps.geocode(search)

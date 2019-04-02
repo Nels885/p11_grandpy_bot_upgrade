@@ -11,15 +11,6 @@ class TestGrandpyBot:
         self.address = "7 Cité Paradis, 75010 Paris, France"
         self.location = {'geometry': {"lng": 2.350564700000001, "lat": 48.8747578}, 'route': "Cité Paradis"}
 
-    def test_grandpy_bot_no_result(self):
-        """
-        Test that sending a message works
-        :return: return FAILED if msg_Bot doesn't exist and location si empty
-        """
-        for msg in MSG_TEST_NO_RESULT:
-            msg_bot, location = grandpy_bot(msg)
-            assert len(msg_bot) != 0 and len(location['geometry']) == 0 and len(location['route']) == 0
-
     def test_grandpy_bot_result(self, monkeypatch):
         """
         Test that we have a location result
@@ -36,3 +27,12 @@ class TestGrandpyBot:
             msg_bot, location = grandpy_bot(msgTestOc)
             assert location['route'] == self.route
             assert msg_bot[0] not in app.config["MSG_BOT_ERROR"]
+
+    def test_grandpy_bot_no_result(self):
+        """
+        Test that sending a message works
+        :return: return FAILED if msg_Bot doesn't exist and location si empty
+        """
+        for msg in MSG_TEST_NO_RESULT:
+            msg_bot, location = grandpy_bot(msg)
+            assert len(msg_bot) != 0 and len(location['geometry']) == 0 and len(location['route']) == 0
