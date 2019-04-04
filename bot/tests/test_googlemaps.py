@@ -44,7 +44,7 @@ class TestGoogleMaps:
 
         monkeypatch.setattr(script.gooMaps, "geocode", mockreturn)
         script.geo_search(KEY_WORDS_TEST)
-        assert len(script.format_address) == 0 and len(script.location["geometry"]) == 0
+        assert len(script.format_address) == 0 and script.location is None
 
     def test_api_no_key_words(self):
         """
@@ -53,7 +53,7 @@ class TestGoogleMaps:
         """
         script = self.gmaps
         script.geo_search("")
-        assert len(script.format_address) == 0 and len(script.location["geometry"]) == 0
+        assert len(script.format_address) == 0 and script.location is None
 
     def test_geo_search_error(self):
         """

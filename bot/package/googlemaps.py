@@ -13,7 +13,7 @@ class GoogleMaps:
         self.gooMaps = googlemaps.Client(key=google_key)
         self.geocode_result = []
         self.format_address = ""
-        self.location = {}
+        self.location = None
         self.error = True
 
     def geo_search(self, key_words):
@@ -23,15 +23,15 @@ class GoogleMaps:
         :return: Booleen based on information found by geocoding API
         """
         self.error = True
-        self.location = {'geometry': '', 'route': ''}
+        self.location = None
         if len(key_words) != 0:
             search = " ".join(key_words)
             self.geocode_result = self.gooMaps.geocode(search)
             log.info("GOOGLE_MAPS - RESULT : {}".format(self.geocode_result))
             self._formatted_address()
             self._geo_location()
-            log.info("GOOGLE_MAPS - OUT : ADDRESS : {} - LOCATION : {} - ROUTE : {}"
-                     .format(self.format_address, self.location["geometry"], self.location["route"]))
+            log.info("GOOGLE_MAPS - OUT : ADDRESS : {} - LOCATION : {}"
+                     .format(self.format_address, self.location))
         else:
             self.error = False
         return self.error

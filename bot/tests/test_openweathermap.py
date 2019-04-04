@@ -23,7 +23,7 @@ class TestOpenWeatherMap:
         self.result = {
             "coord": {"lon": 6.29, "lat": 48.37},
             "weather": [{"id": 800, "main": "Clear", "description": "ciel dégagé", "icon": "01d"}],
-            "main": {"temp": 287.14, "pressure": 1010, "humidity": 54, "temp_min": 286.15, "temp_max": 288.15},
+            "main": {"temp": 5.32, "pressure": 1000, "humidity": 86, "temp_min": 4, "temp_max": 6.67},
             "cod": 200,
         }
         app.config.from_object("config")
@@ -40,7 +40,7 @@ class TestOpenWeatherMap:
 
         monkeypatch.setattr(requests, "get", mockreturn)
         data = self.weather.result(self.city, self.country)
-        assert data["temp"] == "287°C"
+        assert data["temp"] == "5°C"
         assert data["desc"] == "ciel dégagé"
 
     def test_weather_icon(self, monkeypatch):
@@ -69,3 +69,14 @@ class TestOpenWeatherMap:
         monkeypatch.setattr(requests, "get", mockreturn)
         data = self.weather.result("", "")
         assert data is None
+
+    def test_temp_format(self):
+        """
+        Test if temperatures is formatted
+        :return: FAILED if all temperatures is not formatted
+        """
+        data = self.result["main"]
+        data = self.weather.temp_format(data)
+        assert data["temp"] == "5°C"
+        assert data["temp_min"] == "4°C"
+        assert data["temp_max"] == "6°C"

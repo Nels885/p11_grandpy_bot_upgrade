@@ -23,26 +23,6 @@ class RequestAjax {
 }
 
 
-// Class for display the answer of GrandpyBot or Anonymous
-class ContChat {
-    constructor(chatClass, avatar, avatClass) {
-        this.chatClass = chatClass;
-        this.avatar = avatar;
-        this.avatClass = avatClass;
-    }
-
-    add(answer) {
-        // Remove load animation
-        $('#load').remove();
-        chat.append('<div class="row"><div class="' + this.chatClass + '">' +
-            '<img class="' + this.avatClass + '" src="../static/img/' + this.avatar + '" alt="Avatar"><p>' + answer +
-            '</p></div></div>');
-        $('html, body').animate({
-            scrollTop: $('#addMsg').offset().top
-        }, 'slow');
-    }
-}
-
 // Create Ajax Objects
 let backEndObject = new RequestAjax('POST', '/');
 let mediaWikiObject;
@@ -69,48 +49,15 @@ function ajaxError(error) {
 }
 
 
-// Function for search with API MediaWiki
-function mediawikiSearchCallback(response) {
-    const pageIdList = response['query']['geosearch'];
-    pageId = pageIdList[0]['pageid'];
-    // Number of the searched page
-    for (let i = 0; i < pageIdList.length; i++) {
-        if (pageIdList[i]['title'] === geoLocation['route']) {
-            pageId = pageIdList[i]['pageid'];
-        }
-    }
-    console.log('[MEDIAWIKI] PAGE_ID : ' + pageId);
-
-    backEnd['dataPageId']['pageids'] = pageId;
-    mediaWikiObject.ajax(backEnd['dataPageId'], mediawikiPageidCallback);
-}
-
-
-// Function for displaying the response of the MediaWiki API
-function mediawikiPageidCallback(response) {
-    const lien = 'https://fr.wikipedia.org/wiki?curid=' + pageId;
-    const result = response['query']['pages'][0]['extract'];
-    console.log('[MEDIAWIKI] extract : ' + result);
-    if (result.length !== 0) {
-        msgBot = backEnd['answers'][1] + result;
-    } else {
-        msgBot = backEnd['answers'][1] +
-            "Bon, j'ai un soucis pour récupérer les informations mais vous pouvez les trouver à cette page ";
-    }
-    console.log('[MEDIAWIKI] ANSWER_BOT : ' + msgBot);
-
-    chatBot.add(msgBot + ' [<a href="' + lien + '">En savoir plus sur Wikipedia</a>]');
-}
-
-
 // Function for displaying the google map
 function initMap(location, mapId) {
+    geometry = location['geometry'];
     let map = new google.maps.Map(document.getElementById(mapId), {
-        center: location,
+        center: geometry,
         zoom: 14
     });
     let marker = new google.maps.Marker({
-        position: location,
+        position: geometry,
         map: map,
         title: 'C\'est ici !'
     });
@@ -136,13 +83,19 @@ $(function () {
             geoLocation = backEnd['geoLocation'];
             console.log('[BACK END] LOCATION : ' + geoLocation);
 
-            chatBot.add(response['answers'][0]);
+            chatBot.send(response['answers'][0]);
 
             // if geolocation then we display the Google Map
-            if (geoLocation['route'].length !== 0) {
+            if (geoLocation) {
+
+                // adding weather for the desired location
+                let weather = response['weather'];
+                console.log('[BACK END] WEATHER : ' + weather);
+                chatBot.add('<p>Température: ' + weather['temp'] + '<br>Description: ' + weather['desc'] + '</p>');
+
                 let mapId = 'map' + String(numId);
                 chatMap.add('<div id=' + mapId + ' class="map"></div>');
-                initMap(geoLocation['geometry'], mapId);
+                initMap(geoLocation, mapId);
                 numId += 1;
                 // Adding load animation
                 loadBot();

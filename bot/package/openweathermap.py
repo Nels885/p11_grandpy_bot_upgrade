@@ -19,10 +19,14 @@ class OpenWeatherMap:
         """
         data = self.get_request(city, country)
         if data["cod"] == 200:
-            temp = "%d°C" % data["main"]["temp"]
-            desc = data["weather"][0]["description"]
-            icon = self.icon(data)
-            return {"temp": temp, "desc": desc, "icon": icon}
+            weather = dict([
+                ("desc", data["weather"][0]["description"]),
+                ("icon", self.icon(data)),
+            ])
+            weather.update(data["main"])
+            weather = self.temp_format(weather)
+            log.info("WEATHER - RESULT : %s" % weather)
+            return weather
         return None
 
     def get_request(self, city, country):
@@ -49,3 +53,10 @@ class OpenWeatherMap:
         """
         icon_id = data["weather"][0]["icon"]
         return self.URL_ICON + icon_id + ".png"
+
+    @staticmethod
+    def temp_format(data):
+        for key, value in data.items():
+            if "temp" in key:
+                data[key] = "%d°C" % value
+        return data

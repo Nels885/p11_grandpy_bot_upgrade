@@ -36,7 +36,7 @@ class TestGrandpyBot:
         for msg in MSG_TEST_NO_RESULT:
             msg_bot, location, weath = grandpy_bot(msg)
             assert msg_bot[0] in app.config["MSG_BOT_ERROR"]
-            assert len(location['geometry']) == 0 and len(location['route']) == 0
+            assert location is None
 
     def test_grandpy_bot_message(self, monkeypatch):
         """
