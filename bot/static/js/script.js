@@ -33,13 +33,6 @@ let chatUser = new ContChat('cont-chat darker text-right ml-auto', 'invite.png',
 let chatMap = new ContChat('cont-chat col-lg-12 mr-auto', 'papybot.png', 'left avatar');
 
 
-// Function for adding load animation
-function loadBot() {
-    chat.append('<div class="row"><div class="cont-chat text-center col-lg-12" id="load">' +
-        '<div id="loader"></div></div></div>');
-}
-
-
 // Function for the error with Ajax
 function ajaxError(error) {
     chatBot.add('Je suis désolé, je ne peux pas vous répondre pour le moment, mon cerveau est en surchauffe :( !!');
@@ -83,15 +76,10 @@ $(function () {
             geoLocation = backEnd['geoLocation'];
             console.log('[BACK END] LOCATION : ' + geoLocation);
 
-            chatBot.send(response['answers'][0]);
-
             // if geolocation then we display the Google Map
             if (geoLocation) {
 
-                // adding weather for the desired location
-                let weather = response['weather'];
-                console.log('[BACK END] WEATHER : ' + weather);
-                chatBot.add('<p>Température: ' + weather['temp'] + '<br>Description: ' + weather['desc'] + '</p>');
+                resultBot(response);
 
                 let mapId = 'map' + String(numId);
                 chatMap.add('<div id=' + mapId + ' class="map"></div>');
@@ -101,6 +89,8 @@ $(function () {
                 loadBot();
                 backEnd['dataSearch']['gscoord'] = geoLocation['geometry']['lat'] + '|' + geoLocation['geometry']['lng'];
                 mediaWikiObject.ajax(backEnd['dataSearch'], mediawikiSearchCallback);
+            } else {
+                chatBot.send(response['answers'][0]);
             }
         });
     });
