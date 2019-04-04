@@ -45,11 +45,11 @@ function resultBot(response) {
     chatBot.add(
         '<p>' + response['answers'][0] +
         '<br>Vous trouvez ci-dessous la météo pour cette adresse:</p>' +
-        '<p><img class="float-right" src="' + weather['icon'] + '" alt="weather" />' +
-        '<strong>- Température: </strong>' + weather['temp'] + '<br>' +
-        '<strong>- Description: </strong>' + weather['desc'] + '<br>' +
-        '<strong>- Humidité: </strong>' + weather['humidity'] + '<br>' +
-        '<strong>- Pression: </strong>' + weather['pressure'] +
-        '</p>'
+        '<p><img class="float-right" src="' + weather['icon'] + '" alt="weather" width="20%" />' +
+        '<strong>- Température:</strong> ' + weather['temp'] + '<br>' +
+        '<strong>- couverture nuageuse:</strong> ' + weather['desc'] + '<br>' +
+        '<strong>- Humidité de l\'air:</strong> ' + weather['humidity'] + '%<br>' +
+        '<strong>- Pression atmosphérique:</strong> ' + weather['pressure'] + ' mb<br>' +
+        '<strong>- Vitesse du vent:</strong> ' + weather['speed_wind'] + 'km/h</p>'
     );
 }

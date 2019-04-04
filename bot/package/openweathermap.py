@@ -22,6 +22,7 @@ class OpenWeatherMap:
             weather = dict([
                 ("desc", data["weather"][0]["description"]),
                 ("icon", self.icon(data)),
+                ("speed_wind", data["wind"]["speed"])
             ])
             weather.update(data["main"])
             weather = self.temp_format(weather)

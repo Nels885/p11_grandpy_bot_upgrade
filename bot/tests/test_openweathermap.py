@@ -24,6 +24,7 @@ class TestOpenWeatherMap:
             "coord": {"lon": 6.29, "lat": 48.37},
             "weather": [{"id": 800, "main": "Clear", "description": "ciel dégagé", "icon": "01d"}],
             "main": {"temp": 5.32, "pressure": 1000, "humidity": 86, "temp_min": 4, "temp_max": 6.67},
+            "wind": {"speed": 3.1, "deg": 240},
             "cod": 200,
         }
         app.config.from_object("config")
