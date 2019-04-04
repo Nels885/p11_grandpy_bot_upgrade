@@ -1,5 +1,5 @@
 from ..grandpybot import grandpy_bot, gmaps
-from .config import MSG_TEST_NO_RESULT, MSG_TEST_OC
+from .config import MSG_TEST_NO_RESULT, MSG_TEST_OC, LOCATION
 
 from .. import app
 
@@ -9,7 +9,6 @@ class TestGrandpyBot:
     def setup_method(self):
         self.route = "Cité Paradis"
         self.address = "7 Cité Paradis, 75010 Paris, France"
-        self.location = {'geometry': {"lng": 2.350564700000001, "lat": 48.8747578}, 'route': "Cité Paradis"}
 
     def test_grandpy_bot_result(self, monkeypatch):
         """
@@ -19,7 +18,7 @@ class TestGrandpyBot:
         for msgTestOc in MSG_TEST_OC:
 
             def mockreturn(grandpybot):
-                gmaps.location = self.location
+                gmaps.location = LOCATION
                 gmaps.format_address = self.address
                 return True
             monkeypatch.setattr(gmaps, "geo_search", mockreturn)
@@ -49,7 +48,7 @@ class TestGrandpyBot:
         for msgTestOc in MSG_TEST_OC:
 
             def mockreturn(grandpybot):
-                gmaps.location = self.location
+                gmaps.location = LOCATION
                 gmaps.format_address = self.address
                 return True
             monkeypatch.setattr(gmaps, "geo_search", mockreturn)

@@ -9,7 +9,10 @@ class TestGoogleMaps:
 
     def setup_method(self):
         self.results = [{
-                    "address_components": [{"long_name": "7"}, {"long_name": "Cité Paradis"}],
+                    "address_components": [
+                        {"long_name": "7"}, {"long_name": "Cité Paradis"}, {"long_name": "Paris"},
+                        {"long_name": "Arrondissement de Paris"}, {"long_name": "Île-de-France"}, {"short_name": "FR"}
+                    ],
                     "geometry": {"location": {"lng": 2.350564700000001, "lat": 48.8747578}, "route": "Cité Paradis"},
                     "formatted_address": "7 Cité Paradis, 75010 Paris, France",
                     }]

@@ -54,6 +54,8 @@ class GoogleMaps:
         if len(self.geocode_result) != 0:
             route = self.geocode_result[0]["address_components"][1]["long_name"]
             geo = self.geocode_result[0]["geometry"]["location"]
-            self.location = {'geometry': geo, 'route': route}
+            city = self.geocode_result[0]["address_components"][2]["long_name"]
+            country = self.geocode_result[0]["address_components"][5]["short_name"]
+            self.location = {'geometry': geo, 'route': route, 'city': city, 'country': country}
         else:
             self.error = False

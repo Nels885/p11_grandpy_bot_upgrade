@@ -18,7 +18,7 @@ def grandpy_bot(message):
     :return: GrandPy Bot's answer
     """
     msgs_bot = []
-
+    weath = None
     # Parsing of user's message
     key_words = pars.msg_analysis(message)
 
@@ -26,11 +26,12 @@ def grandpy_bot(message):
     if gmaps.geo_search(key_words):
         msgs_bot.append(random_msg_start(MSG_START).format(address=gmaps.format_address))
         msgs_bot.append(random_msg_start(INFO_BOT))
+        weath = weather.result(gmaps.location["city"], gmaps.location["country"])
     else:
         msgs_bot.append(random_msg_start(MSG_BOT_ERROR))
 
     log.info("GRANDY_BOT - ANSWERS : %s - LOCATION : %s" % (msgs_bot, gmaps.location))
-    return msgs_bot, gmaps.location, weather.result("Custines", "fr")
+    return msgs_bot, gmaps.location, weath
 
 
 def random_msg_start(msg):
