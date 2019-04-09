@@ -45,13 +45,13 @@ function resultBot(response) {
         console.log('[BACK END] WEATHER TEMP : ' + weather['temp']);
         chatBot.add(
             '<p>' + response['answers'][0] +
-            '<br>Vous trouvez ci-dessous la météo pour cette adresse:</p>' +
+            '<br>Vous trouvez ci-dessous la météo pour cette adresse :</p>' +
             '<p><img class="float-right" src="' + weather['icon'] + '" alt="weather" width="20%" />' +
-            '<strong>- Température:</strong> ' + weather['temp'] + '<br>' +
-            '<strong>- couverture nuageuse:</strong> ' + weather['desc'] + '<br>' +
-            '<strong>- Humidité de l\'air:</strong> ' + weather['humidity'] + ' %<br>' +
-            '<strong>- Pression atmosphérique:</strong> ' + weather['pressure'] + ' mb<br>' +
-            '<strong>- Vitesse du vent:</strong> ' + weather['speed_wind'] + ' m/s</p>'
+            '<strong>- Température :</strong> ' + weather['temp'] + '<br>' +
+            '<strong>- Couverture nuageuse :</strong> ' + weather['desc'] + '<br>' +
+            '<strong>- Humidité de l\'air :</strong> ' + weather['humidity'] + ' %<br>' +
+            '<strong>- Pression atmosphérique :</strong> ' + weather['pressure'] + ' mb<br>' +
+            '<strong>- Vitesse du vent :</strong> ' + weather['speed_wind'] + ' m/s</p>'
         );
     } else {
         chatBot.send(response['answers'][0] + '<br>Désolé, nous n\'avons pas pu trouver la météo pour ce lieu.');

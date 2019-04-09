@@ -52,10 +52,16 @@ class GoogleMaps:
         :return: Dict with geometry and route
         """
         if len(self.geocode_result) != 0:
-            route = self.geocode_result[0]["address_components"][1]["long_name"]
+            route = city = country = None
+            for component in self.geocode_result[0]["address_components"]:
+                if component["types"][0] in ["route", "establishment", "park", "point_of_interest"]:
+                    route = component["long_name"]
+                if component["types"][0] == "locality":
+                    city = component["long_name"]
+                if component["types"][0] == "country":
+                    country = component["short_name"]
+
             geo = self.geocode_result[0]["geometry"]["location"]
-            city = self.geocode_result[0]["address_components"][2]["long_name"]
-            country = self.geocode_result[0]["address_components"][5]["short_name"]
             self.location = {'geometry': geo, 'route': route, 'city': city, 'country': country}
         else:
             self.error = False

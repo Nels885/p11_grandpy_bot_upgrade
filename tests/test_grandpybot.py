@@ -5,8 +5,8 @@ from bot import app
 
 
 def mock_geo_search(key_words):
-    gmaps.location = LOCATION
-    gmaps.format_address = FORMATTED_ADDRESS
+    gmaps.location = LOCATION[0]
+    gmaps.format_address = FORMATTED_ADDRESS[0]
     return True
 
 
