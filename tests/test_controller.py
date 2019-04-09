@@ -1,7 +1,7 @@
 from urllib import request
 from flask_testing import LiveServerTestCase, TestCase
 
-from .. import app
+from bot import app
 
 
 class TestController(LiveServerTestCase, TestCase):
@@ -10,7 +10,7 @@ class TestController(LiveServerTestCase, TestCase):
 
     def create_app(self):
         self.headers = {"content-type": "application/x-www-form-urlencoded; charset=UTF-8"}
-        app.config.from_object("bot.tests.config")
+        app.config.from_object("tests.config")
         return app
 
     def test_server_is_up_and_running(self):

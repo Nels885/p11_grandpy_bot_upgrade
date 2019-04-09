@@ -1,4 +1,6 @@
-# grandpy_bot
+# grandpy_bot 2.0
+
+[![Build Status](https://travis-ci.org/Nels885/p11_grandpy_bot_upgrade.svg?branch=staging)](https://travis-ci.org/Nels885/p11_grandpy_bot_upgrade)
 
 Grandpy Bot is a Python application with the Flash framework. You can ask him about a place and he will give you his 
 address with this position on Google Maps and tell you a little story about this place.
@@ -7,11 +9,17 @@ The project uses the [Google Cloud Platform APIs](https://cloud.google.com/maps-
 display the map, while the [MediaWiki API](https://www.mediawiki.org/wiki/API:Main_page) allows Grandpy Bot to search
 for information for this little story.
 
+**Update of 09/04/2019 :**
+
+Adding the weather of the place searched by the user. The data is
+retrieved using the
+[OpenWeatherMap API](https://openweathermap.org/current).
+
 ### Application responsive
 
 This app also on Smartphone or Tablet screens as can be seen on the screenshot below:
 
-![alt text](pictures/Nexus7_granpy_bot.png)
+![alt text](pictures/nexus7_grandpy_bot_2.0.png)
 
 ## Start guide
 
@@ -21,9 +29,9 @@ This app also on Smartphone or Tablet screens as can be seen on the screenshot b
 
 ### Installation instructions
 
-* install Python 3.x
+* install Python 3.5 or more
 
-Collect the granpy-bot repo and install the dependencis as below:
+Collect the granpy-bot repo and install the dependencies as below:
 
     $ git clone https://github.com/Nels885/grandpy_bot.git
     $ cd grandpy_bot
@@ -42,8 +50,4 @@ to Grandpy Bot.
 
 ### screenshot of application:
 
-![alt text](pictures/default_grandpy_bot.png)
-
-This project is part of the  formation of "Python application developer" of 
-[OpenClassrooms](https://openclassrooms.com/fr/paths/68-developpeur-dapplication-python).
-
+![alt text](pictures/default_grandpy_bot_2.0.png)

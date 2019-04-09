@@ -13,7 +13,12 @@ KEY_WORDS_TEST = ["adresse", "openclassrooms"]
 
 FORMATTED_ADDRESS = "7 Cité Paradis, 75010 Paris, France"
 
-LOCATION = {'geometry': {'lng': 2.350564700000001, 'lat': 48.8747578}, 'route': "Cité Paradis"}
+LOCATION = {
+    'geometry': {'lng': 2.350564700000001, 'lat': 48.8747578},
+    'route': 'Cité Paradis',
+    'city': 'Paris',
+    'country': 'FR'
+}
 
 MSG_TEST_NO_RESULT = [
     "Salut Grandpy Bot, c'est quoi l'adresse ?",

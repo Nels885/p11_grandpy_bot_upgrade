@@ -1,7 +1,7 @@
-from ..package.parser import Parser
+from bot.package.parser import Parser
 from .config import MSG_TEST_NO_RESULT, MSG_TEST_OC, KEY_WORDS_TEST
 
-from .. import app
+from bot import app
 
 
 class TestParser:
