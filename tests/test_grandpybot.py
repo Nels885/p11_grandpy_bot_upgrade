@@ -1,14 +1,19 @@
-from ..grandpybot import grandpy_bot, gmaps
-from .config import MSG_TEST_NO_RESULT, MSG_TEST_OC, LOCATION
+from bot.grandpybot import grandpy_bot, gmaps
+from .config import MSG_TEST_NO_RESULT, MSG_TEST_OC, LOCATION, FORMATTED_ADDRESS
 
-from .. import app
+from bot import app
+
+
+def mock_geo_search(key_words):
+    gmaps.location = LOCATION
+    gmaps.format_address = FORMATTED_ADDRESS
+    return True
 
 
 class TestGrandpyBot:
 
     def setup_method(self):
         self.route = "Cité Paradis"
-        self.address = "7 Cité Paradis, 75010 Paris, France"
 
     def test_grandpy_bot_result(self, monkeypatch):
         """
@@ -17,11 +22,7 @@ class TestGrandpyBot:
         """
         for msgTestOc in MSG_TEST_OC:
 
-            def mockreturn(grandpybot):
-                gmaps.location = LOCATION
-                gmaps.format_address = self.address
-                return True
-            monkeypatch.setattr(gmaps, "geo_search", mockreturn)
+            monkeypatch.setattr(gmaps, "geo_search", mock_geo_search)
 
             msg_bot, location, weath = grandpy_bot(msgTestOc)
             assert location['route'] == self.route
@@ -47,11 +48,7 @@ class TestGrandpyBot:
             assert msg_bot[0] in app.config["MSG_BOT_ERROR"]
         for msgTestOc in MSG_TEST_OC:
 
-            def mockreturn(grandpybot):
-                gmaps.location = LOCATION
-                gmaps.format_address = self.address
-                return True
-            monkeypatch.setattr(gmaps, "geo_search", mockreturn)
+            monkeypatch.setattr(gmaps, "geo_search", mock_geo_search)
 
             msg_bot, location, weath = grandpy_bot(msgTestOc)
             assert location['route'] == self.route

@@ -1,7 +1,7 @@
-from ..package.googlemaps import GoogleMaps
+from bot.package.googlemaps import GoogleMaps
 from .config import KEY_WORDS_TEST, FORMATTED_ADDRESS, LOCATION
 
-from .. import app
+from bot import app
 
 
 # noinspection PyAttributeOutsideInit,SpellCheckingInspection

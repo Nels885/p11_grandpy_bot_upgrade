@@ -1,9 +1,9 @@
 import requests
 import json
 
-from ..package.openweathermap import OpenWeatherMap
+from bot.package.openweathermap import OpenWeatherMap
 
-from .. import app
+from bot import app
 
 
 class FakeResponse:
