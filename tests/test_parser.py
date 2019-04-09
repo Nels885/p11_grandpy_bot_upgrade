@@ -34,4 +34,4 @@ class TestParser:
         """
         for msg_test in MSG_TEST_OC:
             result = self.parser.msg_analysis(msg_test)
-            assert result == KEY_WORDS_TEST
+            assert result == KEY_WORDS_TEST[0]
